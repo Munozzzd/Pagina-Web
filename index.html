@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe y Dashboard Analytics: Productos Más Vendidos</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: { 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' },
+                        emerald: { 400: '#34d399', 500: '#10b981', 600: '#059669' },
+                        slate: { 850: '#131e32', 950: '#070d18' }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js CDN for HTML5 Canvas Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        /* Custom smooth scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6366f1;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 dark:bg-slate-950 text-slate-100 min-h-screen transition-colors duration-300 pb-16">
+
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-slate-900/85 dark:bg-slate-950/85 border-b border-slate-800 px-4 lg:px-8 py-3 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
+            
+            <!-- Brand & DB Connection Badge -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-emerald-400 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                    <i class="fa-solid fa-chart-pie text-slate-950 text-xl font-black"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-black text-lg tracking-tight bg-gradient-to-r from-indigo-400 via-slate-200 to-emerald-400 bg-clip-text text-transparent">DATA<span>INTELLIGENCE</span></span>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2 py-0.5 rounded bg-slate-800 border border-slate-700">BI Suite v4.2</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs text-emerald-400 font-medium">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Base de datos conectada | Reporte actualizado</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Filters & Theme Toggle -->
+            <div class="flex items-center gap-3 flex-wrap sm:flex-nowrap">
+                <!-- Period Selector -->
+                <div class="flex items-center gap-2 bg-slate-800/90 border border-slate-700/80 rounded-xl px-3 py-1.5 text-xs text-slate-300">
+                    <i class="fa-regular fa-calendar-days text-indigo-400"></i>
+                    <label for="periodSelect" class="font-medium text-slate-400">Periodo:</label>
+                    <select id="periodSelect" class="bg-transparent text-slate-100 font-semibold focus:outline-none cursor-pointer">
+                        <option value="month" class="bg-slate-900 text-slate-100">Último Mes</option>
+                        <option value="quarter" class="bg-slate-900 text-slate-100">Último Trimestre</option>
+                        <option value="year" selected class="bg-slate-900 text-slate-100">Año en Curso (2026)</option>
+                        <option value="all" class="bg-slate-900 text-slate-100">Histórico Completo</option>
+                    </select>
+                </div>
+
+                <!-- Export CSV Button -->
+                <button onclick="exportToCSV()" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 transition-all text-xs font-semibold flex items-center gap-2">
+                    <i class="fa-solid fa-file-csv text-emerald-400"></i> Exportar CSV
+                </button>
+
+                <!-- Dark/Light Mode Switcher -->
+                <button id="themeToggle" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition-all" title="Cambiar Tema">
+                    <i id="themeIcon" class="fa-solid fa-sun text-amber-400"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+
+        <!-- Executive Header Section -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 border-b border-slate-800 pb-6">
+            <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/70 border border-indigo-500/30 text-indigo-400 text-xs font-bold uppercase tracking-wider mb-3">
+                    <i class="fa-solid fa-database"></i> Reporte Oficial de Base de Datos
+                </div>
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+                    Análisis de Productos <span class="bg-gradient-to-r from-indigo-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent">Más Vendidos</span>
+                </h1>
+                <p class="mt-2 text-slate-400 text-sm max-w-2xl">
+                    Informe analítico de comportamiento de mercado, volumen de ventas y tendencias de rendimiento según los registros consolidados del sistema.
+                </p>
+            </div>
+
+            <!-- Quick Stats Summary -->
+            <div class="flex items-center gap-3">
+                <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold text-xs transition-all shadow-lg shadow-indigo-600/30 flex items-center gap-2">
+                    <i class="fa-solid fa-print"></i> Imprimir Informe PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- Key Performance Indicators (KPI Cards) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+            
+            <!-- KPI 1: Unidades Totales Vendidas -->
+            <div class="bg-slate-850 dark:bg-slate-900/90 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-5 relative overflow-hidden transition-all duration-300">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Unidades Vendidas</span>
+                    <div class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                        <i class="fa-solid fa-boxes-packing text-lg"></i>
+                    </div>
+                </div>
+                <h3 id="kpiTotalUnits" class="text-3xl font-black text-white">0</h3>
+                <div class="flex items-center gap-2 mt-2 text-xs font-semibold text-emerald-400">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                    <span>+18.4% vs periodo anterior</span>
+                </div>
+            </div>
+
+            <!-- KPI 2: Ingresos Totales Generados -->
+            <div class="bg-slate-850 dark:bg-slate-900/90 border border-slate-800 hover:border-emerald-500/50 rounded-2xl p-5 relative overflow-hidden transition-all duration-300">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ingresos Totales</span>
+                    <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <i class="fa-solid fa-hand-holding-dollar text-lg"></i>
+                    </div>
+                </div>
+                <h3 id="kpiTotalRevenue" class="text-3xl font-black text-white">$0</h3>
+                <div class="flex items-center gap-2 mt-2 text-xs font-semibold text-emerald-400">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Margen operativo de 34.2%</span>
+                </div>
+            </div>
+
+            <!-- KPI 3: Producto Estrella (#1) -->
+            <div class="bg-slate-850 dark:bg-slate-900/90 border border-slate-800 hover:border-amber-500/50 rounded-2xl p-5 relative overflow-hidden transition-all duration-300">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Producto Estrella (#1)</span>
+                    <div class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                        <i class="fa-solid fa-trophy text-lg"></i>
+                    </div>
+                </div>
+                <h3 id="kpiTopProduct" class="text-lg font-extrabold text-white truncate">Cargando...</h3>
+                <div class="flex items-center gap-2 mt-2 text-xs font-semibold text-amber-400">
+                    <i class="fa-solid fa-crown"></i>
+                    <span id="kpiTopProductSales">0 unidades registradas</span>
+                </div>
+            </div>
+
+            <!-- KPI 4: Categoría con Mayor Crecimiento -->
+            <div class="bg-slate-850 dark:bg-slate-900/90 border border-slate-800 hover:border-purple-500/50 rounded-2xl p-5 relative overflow-hidden transition-all duration-300">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Categoría Líder</span>
+                    <div class="p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                        <i class="fa-solid fa-layer-group text-lg"></i>
+                    </div>
+                </div>
+                <h3 id="kpiTopCategory" class="text-2xl font-black text-white">Tecnología</h3>
+                <div class="flex items-center gap-2 mt-2 text-xs font-semibold text-purple-400">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span id="kpiTopCategoryGrowth">+34.8% crecimiento anual</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics & Visualizations Grid Section -->
+        <div class="space-y-8 mb-12">
+            
+            <!-- Row 1: Top 8 Products Bar Chart & Category Share Doughnut -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Chart 1: Top 8 Productos Más Vendidos -->
+                <div class="lg:col-span-2 bg-slate-850 dark:bg-slate-900/90 border border-slate-800 rounded-2xl p-5 lg:p-6 shadow-xl">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                        <div>
+                            <span class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider">Métrica de Volumen</span>
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-chart-bar text-indigo-400"></i> Top 8 Productos por Volumen de Ventas
+                            </h3>
+                        </div>
+                        <span class="text-xs text-slate-400 bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700">
+                            Ordenado por unidades
+                        </span>
+                    </div>
+                    <div class="relative h-80">
+                        <canvas id="topProductsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 3: Distribución por Categoría -->
+                <div class="bg-slate-850 dark:bg-slate-900/90 border border-slate-800 rounded-2xl p-5 lg:p-6 shadow-xl flex flex-col">
+                    <div class="mb-4">
+                        <span class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">Cuota de Mercado</span>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-chart-pie text-emerald-400"></i> Participación por Categoría
+                        </h3>
+                    </div>
+                    <div class="relative flex-1 min-h-[260px] flex items-center justify-center">
+                        <canvas id="categoryDoughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Monthly Trend Line Chart & Regional Distribution -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Chart 2: Tendencia Temporal Mes a Mes -->
+                <div class="lg:col-span-2 bg-slate-850 dark:bg-slate-900/90 border border-slate-800 rounded-2xl p-5 lg:p-6 shadow-xl">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                        <div>
+                            <span class="text-[11px] font-bold text-cyan-400 uppercase tracking-wider">Análisis Temporal</span>
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-cyan-400"></i> Comportamiento de Ventas Mes a Mes (Top 4)
+                            </h3>
+                        </div>
+                        <span class="text-xs text-slate-400">Evolución en los últimos 12 meses</span>
+                    </div>
+                    <div class="relative h-80">
+                        <canvas id="monthlyTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 4: Comportamiento por Zona Geográfica -->
+                <div class="bg-slate-850 dark:bg-slate-900/90 border border-slate-800 rounded-2xl p-5 lg:p-6 shadow-xl">
+                    <div class="mb-6">
+                        <span class="text-[11px] font-bold text-amber-400 uppercase tracking-wider">Análisis Regional</span>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-globe text-amber-400"></i> Ventas por Zona Geográfica
+                        </h3>
+                    </div>
+                    <div class="relative h-80">
+                        <canvas id="regionalChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: Price vs Satisfaction Matrix (Radar/Scatter Chart) & Executive Insights -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Chart 5: Relación Precio vs Satisfacción (Scatter Plot) -->
+                <div class="lg:col-span-2 bg-slate-850 dark:bg-slate-900/90 border border-slate-800 rounded-2xl p-5 lg:p-6 shadow-xl">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                        <div>
+                            <span class="text-[11px] font-bold text-purple-400 uppercase tracking-wider">Matriz de Valor</span>
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-bullseye text-purple-400"></i> Relación Precio Promedio vs Satisfacción del Cliente
+                            </h3>
+                        </div>
+                        <span class="text-xs text-slate-400">Calificación (1-5) vs Precio USD</span>
+                    </div>
+                    <div class="relative h-80">
+                        <canvas id="priceSatisfactionChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Executive Insights Summary Card -->
+                <div class="bg-gradient-to-br from-slate-850 to-slate-900 border border-slate-800 rounded-2xl p-5 lg:p-6 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-indigo-400 text-xs font-bold uppercase tracking-wider mb-2">
+                            <i class="fa-solid fa-brain"></i> Conclusiones de Business Intelligence
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-4">Hallazgos Clave de Base de Datos</h3>
+                        
+                        <div class="space-y-3 text-xs text-slate-300">
+                            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-emerald-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <strong class="text-white block font-semibold">Dominio Tecnológico:</strong>
+                                    La categoría de Tecnología representa más del 40% del margen total de utilidad neta.
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-start gap-2.5">
+                                <i class="fa-solid fa-chart-line text-cyan-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <strong class="text-white block font-semibold">Crecimiento Regional:</strong>
+                                    La zona Norte registró el mayor repunte trimestral impulsado por productos gaming y audio pro.
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-start gap-2.5">
+                                <i class="fa-solid fa-star text-amber-400 text-sm mt-0.5"></i>
+                                <div>
+                                    <strong class="text-white block font-semibold">Lealtad del Consumidor:</strong>
+                                    Productos con rating > 4.8 presentan una tasa de retención superior al 70%.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+                        <span>Fuente: Servidor PostgreSQL DW-2026</span>
+                        <span class="text-emerald-400 font-semibold">Sincronizado</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Database Full Detailed Table Section -->
+        <div class="bg-slate-850 dark:bg-slate-900/90 border border-slate-800 rounded-3xl p-6 lg:p-8 shadow-2xl mb-12">
+            
+            <!-- Table Header Controls -->
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+                <div>
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest">Base de Datos Consolidada</span>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-white flex items-center gap-2 mt-0.5">
+                        <i class="fa-solid fa-table-list text-indigo-400"></i> Informe Detallado por Producto
+                    </h2>
+                </div>
+
+                <!-- Filters and Search -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <!-- Search Input -->
+                    <div class="relative min-w-[240px]">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="tableSearch" placeholder="Buscar por Nombre o SKU..." 
+                            class="w-full pl-9 pr-4 py-2 bg-slate-900 border border-slate-700 focus:border-indigo-500 rounded-xl text-xs text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all">
+                    </div>
+
+                    <!-- Category Filter Dropdown -->
+                    <select id="tableCategoryFilter" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-xl px-3 py-2 focus:border-indigo-500 focus:outline-none cursor-pointer">
+                        <option value="Todos">Todas las Categorías</option>
+                        <option value="Tecnología">Tecnología</option>
+                        <option value="Gaming">Gaming</option>
+                        <option value="Moda">Moda & Estilo</option>
+                        <option value="Hogar">Hogar & Cocina</option>
+                        <option value="Estilo de Vida">Estilo de Vida</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="overflow-x-auto rounded-2xl border border-slate-800">
+                <table class="w-full text-left text-xs text-slate-300">
+                    <thead class="bg-slate-900 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-800">
+                        <tr>
+                            <th class="py-3.5 px-4 text-center">Rank</th>
+                            <th class="py-3.5 px-4">SKU / Código</th>
+                            <th class="py-3.5 px-4">Producto</th>
+                            <th class="py-3.5 px-4">Categoría</th>
+                            <th class="py-3.5 px-4 text-right">Unidades</th>
+                            <th class="py-3.5 px-4 text-right">Ingresos Totales</th>
+                            <th class="py-3.5 px-4 text-center">Calificación</th>
+                            <th class="py-3.5 px-4 text-center">Tendencia</th>
+                            <th class="py-3.5 px-4 text-center">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" class="divide-y divide-slate-800/80 bg-slate-850/50">
+                        <!-- Populated dynamically via JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Table Footer Stats -->
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mt-4 text-xs text-slate-400">
+                <span id="tableCountText">Mostrando 8 de 8 registros de la base de datos</span>
+                <div class="flex items-center gap-2">
+                    <button onclick="exportToCSV()" class="text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-download"></i> Descargar Datos Completos (.CSV)
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Detailed Product Analytical Modal -->
+    <div id="productModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-3xl rounded-3xl p-6 sm:p-8 shadow-2xl transform scale-95 transition-transform duration-300 relative text-slate-100 max-h-[90vh] overflow-y-auto" id="modalContent">
+            
+            <!-- Close Modal Button -->
+            <button onclick="closeModal()" class="absolute top-5 right-5 w-9 h-9 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Modal Content Loaded via JS -->
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <script>
+        // Database Records of Top Products (Consolidated Dataset)
+        const dbProducts = [
+            {
+                rank: 1,
+                sku: "PRD-9042",
+                name: "Audífonos Inalámbricos Pro ANC",
+                category: "Tecnología",
+                units: 14200,
+                price: 189.99,
+                revenue: 2697858,
+                rating: 4.9,
+                trend: "+42.5%",
+                trendUp: true,
+                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=80",
+                description: "Cancelación activa de ruido con procesador de audio dedicado de 32-bit. Líder en retención de usuarios.",
+                regions: { norte: 5200, centro: 4100, sur: 3200, exportacion: 1700 },
+                monthly: [950, 1100, 1050, 1300, 1400, 1350, 1500, 1420, 1600, 1550, 1700, 1800],
+                demographics: "Gen Z (38%) & Millennials (48%)",
+                retention: "84.2%"
+            },
+            {
+                rank: 2,
+                sku: "PRD-3189",
+                name: "Smartwatch Ultra Fit Series 2",
+                category: "Tecnología",
+                units: 12800,
+                price: 249.50,
+                revenue: 3193600,
+                rating: 4.8,
+                trend: "+38.1%",
+                trendUp: true,
+                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=80",
+                description: "Reloj inteligente biométrico con monitoreo continuo. Alta demanda en sectores corporativos e individuales.",
+                regions: { norte: 4800, centro: 3900, sur: 2600, exportacion: 1500 },
+                monthly: [800, 950, 1100, 1050, 1200, 1250, 1300, 1350, 1400, 1450, 1500, 1550],
+                demographics: "Millennials (52%) & Gen X (32%)",
+                retention: "79.5%"
+            },
+            {
+                rank: 3,
+                sku: "PRD-7712",
+                name: "Consola Portátil OLED Gamer",
+                category: "Gaming",
+                units: 11050,
+                price: 429.00,
+                revenue: 4740450,
+                rating: 4.9,
+                trend: "+55.4%",
+                trendUp: true,
+                image: "https://images.unsplash.com/photo-1592840496694-26d035b52b48?w=500&auto=format&fit=crop&q=80",
+                description: "Dispositivo de entretenimiento portátil con pantalla OLED de 7''. Mayor generador de ingresos brutos.",
+                regions: { norte: 3900, centro: 3500, sur: 2100, exportacion: 1550 },
+                monthly: [700, 850, 900, 950, 1000, 1100, 1200, 1150, 1300, 1350, 1400, 1500],
+                demographics: "Gen Z (55%) & Millennials (35%)",
+                retention: "91.0%"
+            },
+            {
+                rank: 4,
+                sku: "PRD-5401",
+                name: "Chaqueta Térmica Impermeable Urban",
+                category: "Moda",
+                units: 9800,
+                price: 119.90,
+                revenue: 1175020,
+                rating: 4.7,
+                trend: "+21.2%",
+                trendUp: true,
+                image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=80",
+                description: "Prenda de vestir con tecnología cortavientos y regulación térmica. Pico de demanda en temporadas frías.",
+                regions: { norte: 4100, centro: 2900, sur: 1800, exportacion: 1000 },
+                monthly: [600, 700, 800, 750, 850, 900, 950, 920, 1000, 1050, 1100, 1180],
+                demographics: "Millennials (40%) & Gen X (45%)",
+                retention: "68.4%"
+            },
+            {
+                rank: 5,
+                sku: "PRD-1290",
+                name: "Freidora de Aire Dual Zone 9L",
+                category: "Hogar",
+                units: 9200,
+                price: 159.00,
+                revenue: 1462800,
+                rating: 4.8,
+                trend: "+29.0%",
+                trendUp: true,
+                image: "https://images.unsplash.com/photo-1585515320310-259814833e62?w=500&auto=format&fit=crop&q=80",
+                description: "Electrodoméstico de cocina con doble compartimento independiente. Alta penetración en hogares familiares.",
+                regions: { norte: 2900, centro: 3600, sur: 1900, exportacion: 800 },
+                monthly: [500, 600, 650, 700, 800, 850, 900, 880, 950, 1000, 1050, 1120],
+                demographics: "Millennials (45%) & Gen X (40%)",
+                retention: "74.8%"
+            },
+            {
+                rank: 6,
+                sku: "PRD-8823",
+                name: "Termo Inteligente LED 500ml",
+                category: "Estilo de Vida",
+                units: 8500,
+                price: 34.99,
+                revenue: 297415,
+                rating: 4.6,
+                trend: "+18.5%",
+                trendUp: true,
+                image: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&auto=format&fit=crop&q=80",
+                description: "Recipiente térmico con indicador de temperatura digital. Producto de alta rotación y volumen.",
+                regions: { norte: 2800, centro: 2900, sur: 2000, exportacion: 800 },
+                monthly: [500, 550, 600, 650, 700, 750, 800, 820, 850, 880, 900, 950],
+                demographics: "Gen Z (40%) & Millennials (45%)",
+                retention: "62.0%"
+            },
+            {
+                rank: 7,
+                sku: "PRD-6014",
+                name: "Teclado Mecánico RGB Tri-Mode",
+                category: "Gaming",
+                units: 7900,
+                price: 89.95,
+                revenue: 710605,
+                rating: 4.9,
+                trend: "+31.7%",
+                trendUp: true,
+                image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=80",
+                description: "Periférico de alta precisión con switches sustituibles. Popular entre programadores y entusiastas.",
+                regions: { norte: 2700, centro: 2500, sur: 1800, exportacion: 900 },
+                monthly: [450, 500, 550, 600, 650, 700, 750, 780, 800, 820, 850, 900],
+                demographics: "Gen Z (60%) & Millennials (30%)",
+                retention: "88.5%"
+            },
+            {
+                rank: 8,
+                sku: "PRD-4411",
+                name: "Lámpara Ambient LED WiFi",
+                category: "Hogar",
+                units: 6800,
+                price: 49.99,
+                revenue: 339932,
+                rating: 4.5,
+                trend: "+15.0%",
+                trendUp: true,
+                image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&auto=format&fit=crop&q=80",
+                description: "Iluminación ambiental inteligente programable por aplicación. Fuerte presencia en domótica.",
+                regions: { norte: 2100, centro: 2400, sur: 1600, exportacion: 700 },
+                monthly: [400, 450, 480, 520, 560, 600, 620, 650, 680, 700, 720, 750],
+                demographics: "Millennials (50%) & Gen X (35%)",
+                retention: "65.0%"
+            }
+        ];
+
+        // Chart instances holder
+        let topBarChart, doughnutChart, trendLineChart, regionBarChart, scatterChart;
+
+        // Dark Mode Logic
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            themeIcon.className = isDark ? 'fa-solid fa-sun text-amber-400' : 'fa-solid fa-moon text-slate-700';
+            showToast(isDark ? 'Modo Oscuro activado' : 'Modo Claro activado', 'info');
+        });
+
+        // Toast Feedback System
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            let bgStyle = 'bg-slate-800 border-indigo-500 text-indigo-200';
+            let icon = 'fa-circle-info';
+
+            if (type === 'success') {
+                bgStyle = 'bg-slate-800 border-emerald-500 text-emerald-200';
+                icon = 'fa-circle-check';
+            }
+
+            toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border backdrop-blur-md shadow-2xl text-xs font-semibold transition-all duration-300 transform translate-x-10 opacity-0 ${bgStyle}`;
+            toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i> <span>${message}</span>`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => toast.classList.remove('translate-x-10', 'opacity-0'), 10);
+            setTimeout(() => {
+                toast.classList.add('translate-x-10', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Calculate and Render KPIs
+        function renderKPIs() {
+            const totalUnits = dbProducts.reduce((sum, p) => sum + p.units, 0);
+            const totalRevenue = dbProducts.reduce((sum, p) => sum + p.revenue, 0);
+
+            document.getElementById('kpiTotalUnits').innerText = totalUnits.toLocaleString('es-ES');
+            document.getElementById('kpiTotalRevenue').innerText = '$' + totalRevenue.toLocaleString('es-ES');
+
+            // Top #1 product
+            const topProd = dbProducts[0];
+            document.getElementById('kpiTopProduct').innerText = topProd.name;
+            document.getElementById('kpiTopProductSales').innerText = `${topProd.units.toLocaleString('es-ES')} unidades vds.`;
+
+            // Top category
+            const categoryTotals = {};
+            dbProducts.forEach(p => {
+                categoryTotals[p.category] = (categoryTotals[p.category] || 0) + p.units;
+            });
+            
+            let topCat = "Tecnología";
+            let maxUnits = 0;
+            for (let cat in categoryTotals) {
+                if (categoryTotals[cat] > maxUnits) {
+                    maxUnits = categoryTotals[cat];
+                    topCat = cat;
+                }
+            }
+            document.getElementById('kpiTopCategory').innerText = topCat;
+        }
+
+        // Initialize Chart.js Graphs
+        function initCharts() {
+            Chart.defaults.color = '#94a3b8';
+            Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+
+            // 1. Top 8 Products Bar Chart
+            const ctx1 = document.getElementById('topProductsChart').getContext('2d');
+            topBarChart = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: dbProducts.map(p => p.name.length > 18 ? p.name.substring(0, 18) + '...' : p.name),
+                    datasets: [{
+                        label: 'Unidades Vendidas',
+                        data: dbProducts.map(p => p.units),
+                        backgroundColor: [
+                            '#6366f1', '#3b82f6', '#06b6d4', '#10b981', 
+                            '#f59e0b', '#ec4899', '#8b5cf6', '#64748b'
+                        ],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { grid: { color: '#1e293b' } }
+                    }
+                }
+            });
+
+            // 2. Category Doughnut Chart
+            const ctx2 = document.getElementById('categoryDoughnutChart').getContext('2d');
+            const catMap = {};
+            dbProducts.forEach(p => { catMap[p.category] = (catMap[p.category] || 0) + p.revenue; });
+
+            doughnutChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(catMap),
+                    datasets: [{
+                        data: Object.values(catMap),
+                        backgroundColor: ['#6366f1', '#06b6d4', '#ec4899', '#10b981', '#f59e0b'],
+                        borderColor: '#0f172a',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12 } }
+                    },
+                    cutout: '70%'
+                }
+            });
+
+            // 3. Monthly Trend Line Chart (Top 4 Products)
+            const ctx3 = document.getElementById('monthlyTrendChart').getContext('2d');
+            const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+            const top4 = dbProducts.slice(0, 4);
+
+            trendLineChart = new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: top4.map((p, idx) => {
+                        const colors = ['#6366f1', '#06b6d4', '#8b5cf6', '#10b981'];
+                        return {
+                            label: p.name.split(' ')[0] + ' ' + (p.name.split(' ')[1] || ''),
+                            data: p.monthly,
+                            borderColor: colors[idx],
+                            backgroundColor: colors[idx] + '22',
+                            tension: 0.3,
+                            fill: false
+                        };
+                    })
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top', labels: { boxWidth: 10 } }
+                    },
+                    scales: {
+                        x: { grid: { color: '#1e293b' } },
+                        y: { grid: { color: '#1e293b' } }
+                    }
+                }
+            });
+
+            // 4. Regional Distribution Grouped Bar Chart
+            const ctx4 = document.getElementById('regionalChart').getContext('2d');
+            const top5 = dbProducts.slice(0, 5);
+
+            regionBarChart = new Chart(ctx4, {
+                type: 'bar',
+                data: {
+                    labels: top5.map(p => p.name.split(' ')[0]),
+                    datasets: [
+                        { label: 'Norte', data: top5.map(p => p.regions.norte), backgroundColor: '#6366f1' },
+                        { label: 'Centro', data: top5.map(p => p.regions.centro), backgroundColor: '#06b6d4' },
+                        { label: 'Sur', data: top5.map(p => p.regions.sur), backgroundColor: '#10b981' },
+                        { label: 'Exportación', data: top5.map(p => p.regions.exportacion), backgroundColor: '#f59e0b' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 10 } }
+                    },
+                    scales: {
+                        x: { stacked: true, grid: { display: false } },
+                        y: { stacked: true, grid: { color: '#1e293b' } }
+                    }
+                }
+            });
+
+            // 5. Price vs Satisfaction Scatter Matrix Chart
+            const ctx5 = document.getElementById('priceSatisfactionChart').getContext('2d');
+            
+            scatterChart = new Chart(ctx5, {
+                type: 'bubble',
+                data: {
+                    datasets: dbProducts.map(p => ({
+                        label: p.name,
+                        data: [{
+                            x: p.price,
+                            y: p.rating,
+                            r: Math.max(6, Math.min(18, p.units / 1000))
+                        }],
+                        backgroundColor: p.category === 'Tecnología' ? '#6366f199' :
+                                         p.category === 'Gaming' ? '#06b6d499' :
+                                         p.category === 'Moda' ? '#ec489999' : '#10b98199'
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => `${ctx.dataset.label}: $${ctx.raw.x} USD | ${ctx.raw.y} ⭐`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'Precio Promedio ($ USD)', color: '#64748b' }, grid: { color: '#1e293b' } },
+                        y: { title: { display: true, text: 'Calificación (1 - 5 ⭐)', color: '#64748b' }, min: 4.0, max: 5.0, grid: { color: '#1e293b' } }
+                    }
+                }
+            });
+        }
+
+        // Render Database Data Table
+        function renderTable() {
+            const tableBody = document.getElementById('tableBody');
+            const searchQuery = document.getElementById('tableSearch').value.toLowerCase();
+            const selectedCategory = document.getElementById('tableCategoryFilter').value;
+
+            const filtered = dbProducts.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery) || p.sku.toLowerCase().includes(searchQuery);
+                const matchesCat = selectedCategory === "Todos" || p.category === selectedCategory;
+                return matchesSearch && matchesCat;
+            });
+
+            document.getElementById('tableCountText').innerText = `Mostrando ${filtered.length} de ${dbProducts.length} registros de la base de datos`;
+
+            if (filtered.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center py-8 text-slate-500">
+                            <i class="fa-solid fa-folder-open text-2xl mb-2 block"></i>
+                            No se encontraron registros que coincidan con la búsqueda.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tableBody.innerHTML = filtered.map(p => `
+                <tr class="hover:bg-slate-800/60 transition-colors">
+                    <td class="py-3 px-4 text-center font-bold text-indigo-400">#${p.rank}</td>
+                    <td class="py-3 px-4 font-mono font-semibold text-slate-300">${p.sku}</td>
+                    <td class="py-3 px-4">
+                        <div class="flex items-center gap-3">
+                            <img src="${p.image}" alt="${p.name}" class="w-8 h-8 rounded-lg object-cover border border-slate-700">
+                            <span class="font-bold text-white">${p.name}</span>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4">
+                        <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-cyan-300 text-[10px] font-semibold">
+                            ${p.category}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4 text-right font-bold text-slate-100">${p.units.toLocaleString('es-ES')}</td>
+                    <td class="py-3 px-4 text-right font-bold text-emerald-400">$${p.revenue.toLocaleString('es-ES')}</td>
+                    <td class="py-3 px-4 text-center font-bold text-amber-400">
+                        <i class="fa-solid fa-star text-[10px]"></i> ${p.rating}
+                    </td>
+                    <td class="py-3 px-4 text-center font-bold text-emerald-400">${p.trend}</td>
+                    <td class="py-3 px-4 text-center">
+                        <button onclick="openModal(${p.rank})" class="px-3 py-1 rounded-lg bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/30 transition-all text-[11px] font-semibold flex items-center gap-1 mx-auto">
+                            <i class="fa-solid fa-chart-line"></i> Informe
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Modal Handlers
+        function openModal(rank) {
+            const p = dbProducts.find(item => item.rank === rank);
+            if (!p) return;
+
+            const modal = document.getElementById('productModal');
+            const modalContent = document.getElementById('modalContent');
+            const modalBody = document.getElementById('modalBody');
+
+            modalBody.innerHTML = `
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-4 mb-6">
+                    <span class="px-3 py-1 bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 font-bold rounded-xl text-xs">SKU: ${p.sku}</span>
+                    <span class="text-xs text-slate-400">Categoría: <strong class="text-white">${p.category}</strong></span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-44 object-cover rounded-2xl border border-slate-700 shadow-md">
+                        <div class="mt-3 p-3 bg-slate-800/70 rounded-xl border border-slate-700 text-center">
+                            <span class="text-[10px] text-slate-400 uppercase font-bold block">Tasa de Retención</span>
+                            <span class="text-xl font-black text-emerald-400">${p.retention}</span>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2 space-y-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-white">${p.name}</h3>
+                            <p class="text-slate-300 text-xs mt-1">${p.description}</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 text-xs">
+                            <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                                <span class="text-slate-400 block text-[10px] uppercase font-semibold">Unidades Vendidas</span>
+                                <strong class="text-base text-white">${p.units.toLocaleString('es-ES')} vds.</strong>
+                            </div>
+                            <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                                <span class="text-slate-400 block text-[10px] uppercase font-semibold">Ingresos Brutos</span>
+                                <strong class="text-base text-emerald-400">$${p.revenue.toLocaleString('es-ES')}</strong>
+                            </div>
+                            <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                                <span class="text-slate-400 block text-[10px] uppercase font-semibold">Precio Promedio</span>
+                                <strong class="text-base text-cyan-400">$${p.price.toFixed(2)} USD</strong>
+                            </div>
+                            <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                                <span class="text-slate-400 block text-[10px] uppercase font-semibold">Público Principal</span>
+                                <strong class="text-xs text-amber-300">${p.demographics}</strong>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs">
+                            <span class="font-bold text-indigo-400 block mb-1"><i class="fa-solid fa-map-pin"></i> Desglose por Zonas:</span>
+                            <div class="grid grid-cols-4 gap-2 text-center text-[11px] text-slate-300 mt-2">
+                                <div class="bg-slate-900 p-1.5 rounded">Norte: <strong>${p.regions.norte}</strong></div>
+                                <div class="bg-slate-900 p-1.5 rounded">Centro: <strong>${p.regions.centro}</strong></div>
+                                <div class="bg-slate-900 p-1.5 rounded">Sur: <strong>${p.regions.sur}</strong></div>
+                                <div class="bg-slate-900 p-1.5 rounded">Exp: <strong>${p.regions.exportacion}</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('productModal');
+            const modalContent = document.getElementById('modalContent');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        // Export Simulated CSV
+        function exportToCSV() {
+            let csvContent = "Rank,SKU,Producto,Categoria,Unidades,IngresosUSD,Calificacion,Tendencia\n";
+            dbProducts.forEach(p => {
+                csvContent += `${p.rank},"${p.sku}","${p.name}","${p.category}",${p.units},${p.revenue},${p.rating},"${p.trend}"\n`;
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", "Informe_Productos_Mas_Vendidos_2026.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showToast("Reporte CSV generado y descargado correctamente.", "success");
+        }
+
+        // Listeners for filters
+        document.getElementById('tableSearch').addEventListener('input', renderTable);
+        document.getElementById('tableCategoryFilter').addEventListener('change', renderTable);
+        document.getElementById('periodSelect').addEventListener('change', (e) => {
+            showToast(`Filtro cambiado a: ${e.target.options[e.target.selectedIndex].text}`, 'info');
+        });
+
+        // Close modal on click outside
+        document.getElementById('productModal').addEventListener('click', (e) => {
+            if (e.target.id === 'productModal') closeModal();
+        });
+
+        // Initialize on load
+        window.onload = function() {
+            renderKPIs();
+            initCharts();
+            renderTable();
+        };
+    </script>
+</body>
+</html>
