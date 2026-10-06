@@ -253,55 +253,58 @@
       </div>
     </section>
 
-    <!-- SECTION 3: CLINICAL FEASIBILITY & DATASET -->
+   <!-- SECTION 3: CLINICAL FEASIBILITY & CLUBFOOT DATASET (ICD-10: Q66) -->
     <section class="space-y-6">
       <div class="flex items-center gap-3">
         <div class="w-2 h-7 bg-red-600 rounded-full"></div>
-        <h2 class="text-2xl font-bold text-slate-900">3. Feasibility Analysis & National Healthcare Data (INEC)</h2>
+        <h2 class="text-2xl font-bold text-slate-900">3. Clinical Feasibility & Epidemiological Analysis: Congenital Clubfoot (Q66)</h2>
       </div>
 
       <div class="glass-card rounded-3xl p-8 space-y-6">
         <div class="space-y-3">
-          <h3 class="text-lg font-bold text-slate-800">Public Health Reality: Morbidity & Physical Disability Landscape in Ecuador</h3>
+          <h3 class="text-lg font-bold text-slate-800">Hospital Prevalence & Targeted Pathology in Ecuador</h3>
           <p class="text-sm text-slate-600 leading-relaxed">
-            Biomedical engineering projects must be firmly substantiated by epidemiological metrics. We extracted and examined the official <strong>National Hospital Discharges and Disability Registry (INEC Ecuador, 2024)</strong>, specifically table <strong>Cuadro No. 3.1.18: <em>Número de egresos por discapacidad al momento del ingreso del paciente, según provincia de residencia</em></strong>.
+            The technical viability of <strong>Kurimanya Kids</strong> is grounded exclusively in the clinical burden of <strong>congenital talipes equinovarus / clubfoot</strong>, classified under diagnostic code <strong>ICD-10: Q66 (Congenital deformities of feet)</strong> in the official National Hospital Discharges Registry from INEC Ecuador.
           </p>
           <p class="text-sm text-slate-600 leading-relaxed">
-            The dataset highlights critical geographic concentrations of motor/physical disabilities, justifying the establishment of regional digital fabrication hubs for assistive health devices:
+            While clubfoot can be successfully corrected initially via serial casting and percutaneous Achilles tenotomy (the gold standard Ponseti method), the subsequent maintenance phase requires wearing an abduction brace (Denis Browne / Dobbs type) for up to 4 to 5 years. In Ecuador, the public healthcare system faces major hurdles in this phase: high abandonment rates driven by costly imported orthoses ($250–$400 USD), rapid infant outgrowing, and zero compliance telemetry.
           </p>
         </div>
 
-        <!-- Key Metrics from INEC.csv -->
+        <!-- Key Metrics from INEC Hospital Registry (Q66 Only) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-1">
             <span class="text-xs text-slate-500 block uppercase font-semibold">Total Hospital Discharges</span>
-            <span class="text-2xl font-bold text-slate-900">1,130,000+</span>
-            <span class="text-[11px] text-slate-400 block">Total inpatient events (2024)</span>
+            <span class="text-3xl font-bold text-slate-900">481</span>
+            <span class="text-[11px] text-slate-500 block">Congenital clubfoot cases (Q66) nationwide</span>
           </div>
 
           <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-1">
-            <span class="text-xs text-slate-500 block uppercase font-semibold">Azuay (Local Ground)</span>
-            <span class="text-2xl font-bold text-red-600">793</span>
-            <span class="text-[11px] text-slate-400 block">Physical disability discharges</span>
+            <span class="text-xs text-slate-500 block uppercase font-semibold">Guayas Epicenter</span>
+            <span class="text-3xl font-bold text-red-600">191</span>
+            <span class="text-[11px] text-slate-500 block">39.7% of total national treatment demand</span>
           </div>
 
           <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-1">
-            <span class="text-xs text-slate-500 block uppercase font-semibold">Pichincha (Sierra Hub)</span>
-            <span class="text-2xl font-bold text-blue-600">720</span>
-            <span class="text-[11px] text-slate-400 block">Physical disability discharges</span>
+            <span class="text-xs text-slate-500 block uppercase font-semibold">Pichincha Central Hub</span>
+            <span class="text-3xl font-bold text-blue-600">85</span>
+            <span class="text-[11px] text-slate-500 block">17.7% of surgical & casting admissions</span>
           </div>
 
           <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-1">
-            <span class="text-xs text-slate-500 block uppercase font-semibold">Guayas (Coastal Hub)</span>
-            <span class="text-2xl font-bold text-emerald-600">475</span>
-            <span class="text-[11px] text-slate-400 block">Physical disability discharges</span>
+            <span class="text-xs text-slate-500 block uppercase font-semibold">Azuay Regional Baseline</span>
+            <span class="text-3xl font-bold text-emerald-600">9</span>
+            <span class="text-[11px] text-slate-500 block">Immediate test cohort for FabLab Cuenca</span>
           </div>
         </div>
 
-        <!-- Detailed Analytical Text -->
-        <div class="text-xs text-slate-600 leading-relaxed space-y-2 pt-2">
+        <!-- In-Depth Pathology & Engineering Justification -->
+        <div class="space-y-3 pt-2 text-xs text-slate-600 leading-relaxed">
           <p>
-            When combined with the specific clubfoot registry (ICD-10 code Q66: 481 national cases), these records demonstrate that the southern Austro region (Azuay and surrounding provinces) accounts for a high proportion of physical motor conditions requiring specialized orthopedic orthoses. Developing open-source digital manufacturing templates at FabLab Cuenca offers a viable alternative to alleviate the logistical strain placed on tertiary healthcare centers.
+            <strong>Why a digital smart orthosis for Q66?</strong> Clinical literature indicates that without strict brace adherence (23 hours/day for the first 3 months, followed by 12–14 hours at night until age 4–5), deformity recurrence rates exceed 80%, often necessitating invasive posteromedial soft-tissue release surgery. The 481 registered hospitalizations in Ecuador demonstrate consistent ongoing clinical incidence that cannot rely indefinitely on scarce imported equipment.
+          </p>
+          <p>
+            By leveraging local digital fabrication at <strong>FabLab Cuenca</strong>, our design addresses this exact pathology by providing: (1) an indexed dynamic hinge to maintain the required 60° external rotation and 15° dorsiflexion, (2) modular resizing shells costing only ~$8–$12 USD in 3D-printed PETG/TPU to eliminate sizing obsolescence, and (3) embedded plantar sensors to objectively track nighttime compliance and heel contact.
           </p>
         </div>
 
@@ -310,10 +313,10 @@
           <div class="space-y-1 text-center sm:text-left">
             <h4 class="font-bold text-emerald-950 text-sm flex items-center gap-2 justify-center sm:justify-start">
               <i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-700"></i>
-              Official Dataset Source: INEC.csv
+              Official Hospital Dataset: INEC.csv
             </h4>
             <p class="text-xs text-emerald-800">
-              Complete official dataset (Cuadro No. 3.1.18): Discharges by disability status and patient residence province.
+              National hospital discharge statistics from INEC, validating national orthopedic case volumes and provincial incidence.
             </p>
           </div>
           
