@@ -36,6 +36,19 @@
       border: 1px solid rgba(226, 232, 240, 0.8);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
+    .crop-preview {
+      object-fit: cover;
+      object-position: top left;
+      height: 240px;
+      width: 100%;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+
+    .crop-preview:hover {
+      transform: scale(1.03);
+    }
   </style>
 </head>
 <body class="tech-grid-bg min-h-screen flex flex-col selection:bg-red-100 selection:text-red-700">
@@ -54,11 +67,8 @@
           <span class="text-xs font-bold uppercase tracking-wider text-red-600">Weekly Documentation</span>
         </div>
 
-        <div class="flex items-center gap-3">
-          <span class="text-xs font-medium text-slate-500 hidden sm:inline">Kurimanya Kids • FabLab Cuenca</span>
-          <a href="https://github.com/Munozzzd/Pagina-Web" target="_blank" class="p-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-colors">
-            <i data-lucide="github" class="w-4 h-4"></i>
-          </a>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-medium text-slate-500">Kurimanya Kids • FabLab Cuenca</span>
         </div>
 
       </div>
@@ -68,7 +78,7 @@
   <!-- ================= MAIN CONTENT ================= -->
   <main class="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 space-y-12">
 
-    <!-- Document Header -->
+    <!-- Document Header (Without Author section) -->
     <div class="border-b border-slate-200 pb-8 space-y-3">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold tracking-wide uppercase">
         Assignment 01
@@ -77,14 +87,14 @@
         Principles & Practices, Project Management & Clinical Feasibility
       </h1>
       <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-3xl">
-        Documentation of repository architecture, Git version control workflow, initial conceptual AI prototypes, and public health feasibility analysis using national hospital records from INEC Ecuador.
+        Comprehensive development log detailing repository setup, distributed version control routines, early conceptual prototyping via generative design models, and public health feasibility based on official INEC hospital databases.
       </p>
       <div class="flex flex-wrap gap-4 text-xs text-slate-500 pt-2 font-medium">
-        <span><strong>Author:</strong> Danny Muñoz</span>
-        <span>•</span>
         <span><strong>Institution:</strong> Universidad de Cuenca</span>
         <span>•</span>
-        <span><strong>Laboratory:</strong> FabLab Cuenca</span>
+        <span><strong>Academic Program:</strong> Industrial Engineering (6th Cycle)</span>
+        <span>•</span>
+        <span><strong>Prototyping Facility:</strong> FabLab Cuenca</span>
       </div>
     </div>
 
@@ -97,78 +107,90 @@
 
       <div class="glass-card rounded-3xl p-8 space-y-6">
         <p class="text-sm text-slate-600 leading-relaxed">
-          The project required setting up a clean, scalable version control pipeline to host institutional documentation, responsive web interfaces, and open-source CAD/CAM engineering assets.
+          The establishment of a distributed version control architecture is essential for open-source biomedical hardware projects. It guarantees traceability across firmware releases, provides an auditable history of mechanical CAD iterations, and serves as an automated static web host via continuous integration routines.
         </p>
 
-        <!-- Steps Breakdown -->
+        <!-- Detailed Technical Methodology -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+          <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-3">
             <div class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center font-bold text-sm">1</div>
-            <h3 class="font-bold text-slate-800 text-sm">User & Organization Setup</h3>
+            <h3 class="font-bold text-slate-800 text-sm">Git Authentication & Identity</h3>
             <p class="text-xs text-slate-500 leading-relaxed">
-              Configured GitHub identity (<code>Munozzzd</code>) linked to educational and institutional credentials from Universidad de Cuenca.
+              Configured cryptographic SSH keys and verified Git global credentials linked to the institutional academic identity. Initialized local tracking utilizing standard Unix shell commands to maintain clean log commit metadata.
             </p>
           </div>
 
-          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+          <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-3">
             <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm">2</div>
-            <h3 class="font-bold text-slate-800 text-sm">Repository Creation</h3>
+            <h3 class="font-bold text-slate-800 text-sm">Repository Staging & Remote Sync</h3>
             <p class="text-xs text-slate-500 leading-relaxed">
-              Initialized the public repository <code>Pagina-Web</code> with Git version tracking enabled on the <code>main</code> branch and asset folders.
+              Constructed the remote repository <code>Pagina-Web</code> under the <code>Munozzzd</code> workspace. Configured the default branch to <code>main</code>, segregating core static files (<code>index.html</code>, <code>week01.html</code>) from multimedia digital assets (<code>img/</code>).
             </p>
           </div>
 
-          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+          <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-3">
             <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-sm">3</div>
-            <h3 class="font-bold text-slate-800 text-sm">Local to Remote Pipeline</h3>
+            <h3 class="font-bold text-slate-800 text-sm">Continuous Deployment Pipeline</h3>
             <p class="text-xs text-slate-500 leading-relaxed">
-              Implemented iterative staging, commit logging, and deployment through GitHub Pages automated compilation actions.
+              Integrated GitHub Pages static hosting triggered via automated webhook actions on every origin push. This ensures instantaneous deployment of technical logs without requiring third-party cloud orchestration or containerization.
             </p>
           </div>
         </div>
 
-        <!-- Visual Evidence: VS Code & GitHub -->
+        <!-- Visual Evidence: Interactive Zoomable Screen Crops -->
         <div class="space-y-4 pt-4 border-t border-slate-100">
-          <h3 class="text-base font-bold text-slate-800">Visual Evidence: Local Development to GitHub Deployment</h3>
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-slate-800">Visual Evidence: Local Development to GitHub Deployment</h3>
+            <span class="text-xs text-slate-400 italic">Click on any image to open full resolution viewer</span>
+          </div>
           
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             <!-- Screenshot 1: Local VS Code -->
             <div class="space-y-2">
-              <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm aspect-video">
-                <img src="img/HTML_VS.png" alt="Local testing in Visual Studio Code" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+              <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group" onclick="openLightbox('img/HTML_VS.png', 'Local Prototyping Environment (Visual Studio Code)')">
+                <img src="img/HTML_VS.png" alt="Local testing in Visual Studio Code" class="crop-preview">
+                <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i> Click to inspect full view
+                </div>
               </div>
-              <p class="text-xs text-slate-600 font-semibold text-center">Local prototyping & testing in Visual Studio Code</p>
+              <p class="text-xs text-slate-600 font-semibold text-center">Local prototyping & code editing in VS Code</p>
             </div>
 
             <!-- Screenshot 2: Remote Repo Structure -->
             <div class="space-y-2">
-              <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm aspect-video">
-                <img src="img/HTML_GIT.png" alt="Code repository in GitHub" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+              <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group" onclick="openLightbox('img/HTML_GIT.png', 'Remote Repository Code Explorer (GitHub)')">
+                <img src="img/HTML_GIT.png" alt="Code repository in GitHub" class="crop-preview">
+                <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i> Click to inspect full view
+                </div>
               </div>
-              <p class="text-xs text-slate-600 font-semibold text-center">Source code committed and synced to GitHub remote</p>
+              <p class="text-xs text-slate-600 font-semibold text-center">Committed HTML structure and branch tree in GitHub</p>
             </div>
 
             <!-- Screenshot 3: Git Profile & Commit History -->
             <div class="space-y-2">
-              <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm aspect-video">
-                <img src="img/GITCONF.png" alt="Configured profile and commit activity" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+              <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group" onclick="openLightbox('img/GITCONF.png', 'Configured Git Profile & Contribution Activity')">
+                <img src="img/GITCONF.png" alt="Configured profile and commit activity" class="crop-preview">
+                <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i> Click to inspect full view
+                </div>
               </div>
-              <p class="text-xs text-slate-600 font-semibold text-center">User profile & verified commit history tracking</p>
+              <p class="text-xs text-slate-600 font-semibold text-center">Verified profile, repository status & commit activity</p>
             </div>
 
           </div>
         </div>
 
-        <!-- Technical Challenges Encountered -->
+        <!-- Technical Challenges Encountered & Problem Solving -->
         <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
           <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
-            <i data-lucide="wrench" class="w-4 h-4 text-red-600"></i> Challenges Encountered & Problem Solving
+            <i data-lucide="wrench" class="w-4 h-4 text-red-600"></i> Technical Bottlenecks & Practical Solutions
           </h3>
-          <ul class="text-xs text-slate-600 space-y-2 list-disc pl-5 leading-relaxed">
-            <li><strong>Git folder structure limitation:</strong> Git cannot track empty directories. To create the media repository (<code>img/</code>) directly on GitHub, dummy placeholder commits (<code>.gitkeep</code>) were created before bulk uploading binary assets.</li>
-            <li><strong>Asset naming and Unix case-sensitivity:</strong> Image paths failed during initial browser caching due to case sensitivity differences between local Windows environments and GitHub Pages Unix web servers (e.g., <code>ABOUTAS.jpeg</code> vs <code>aboutas.jpeg</code>). Resolved by standardizing file naming conventions across the repository.</li>
-            <li><strong>Aggressive browser caching:</strong> Changes to CSS layouts and newly pushed images did not reflect immediately due to CDN caching. Hard refresh bypasses (<code>Ctrl + F5</code>) and monitoring the GitHub Actions build queue confirmed real-time deployment status.</li>
+          <ul class="text-xs text-slate-600 space-y-2.5 list-disc pl-5 leading-relaxed">
+            <li><strong>Folder Virtualization vs Git Trees:</strong> Git tracks file contents rather than directory nodes. To establish the target folder architecture (<code>img/</code>) directly via remote management, empty directory preservation rules were adopted before staging high-resolution graphic deliverables.</li>
+            <li><strong>Cross-Platform File System Case-Sensitivity:</strong> Windows operating systems exhibit case-insensitivity, whereas GitHub Linux runners enforce strict POSIX case-sensitivity. Assets labeled with capitalization mismatches failed during initial client requests. Standardizing strict lowercase extensions and exact string references permanently mitigated broken links.</li>
+            <li><strong>Cache Invalidation & CDN Latency:</strong> Aggressive browser caching caused recently pushed commits to render previous CSS stylesheet definitions. Bypassing client caches via hard refreshes (<code>Ctrl + F5</code>) and validating the GitHub Actions execution log allowed us to verify correct asset delivery in real-time.</li>
           </ul>
         </div>
       </div>
@@ -183,9 +205,12 @@
 
       <div class="glass-card rounded-3xl p-8 space-y-6">
         <div class="space-y-3">
-          <h3 class="text-lg font-bold text-slate-800">Kurimanya Kids Concept Vision</h3>
+          <h3 class="text-lg font-bold text-slate-800">Kurimanya Kids Vision: Closing the Pediatric Healthcare Gap</h3>
           <p class="text-sm text-slate-600 leading-relaxed">
-            Conventional clubfoot orthoses (AFO and abduction braces) present high abandonment rates in developing countries due to excessive acquisition costs ($250–$400 USD), rapid sizing obsolescence, and absence of adherence data. Our project proposes a <strong>smart, modular, open-source pediatric orthosis</strong> locally manufactured via digital fabrication tools (3D printing in PETG/TPU, laser cutting, and embedded electronics) at FabLab Cuenca.
+            Congenital talipes equinovarus (clubfoot) is one of the most disabling musculoskeletal deformities when left untreated or poorly managed. Although the Ponseti method achieves initial clinical correction rates above 90%, the maintenance phase demands strict adherence to an abduction orthosis for up to 4 or 5 years. In Ecuador, treatment abandonment rates remain alarmingly high due to imported brace expenses ($250–$400 USD per set), rapid child growth cycles requiring full brace replacements every 6 months, and complete absence of quantitative compliance feedback for parents and physicians.
+          </p>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            <strong>Kurimanya Kids</strong> addresses these three bottlenecks through an open-source, modular smart orthosis fabricated locally using FabLab Cuenca infrastructure (FDM additive manufacturing in technical PETG/TPU, laser-cut anatomical straps, and embedded telemetry microelectronics).
           </p>
         </div>
 
@@ -194,26 +219,32 @@
           
           <!-- Concept 1 -->
           <div class="space-y-3">
-            <div class="rounded-3xl overflow-hidden border border-slate-200 bg-slate-900 shadow-md">
-              <img src="img/BOCETO1.jpeg" alt="Modular growth concept sketch" class="w-full h-80 object-cover object-center hover:scale-105 transition-transform duration-500">
+            <div class="rounded-3xl overflow-hidden border border-slate-200 bg-slate-950 shadow-md group relative cursor-pointer" onclick="openLightbox('img/BOCETO1.jpeg', 'Conceptual Prototype 1: Modular Growth & Additive Sizing')">
+              <img src="img/BOCETO1.jpeg" alt="Modular growth concept sketch" class="w-full h-80 object-cover object-center group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Click to expand
+              </div>
             </div>
             <div class="space-y-1">
-              <h4 class="font-bold text-slate-800 text-sm">Conceptual Prototype 1: Modular Growth Architecture</h4>
+              <h4 class="font-bold text-slate-800 text-sm">Conceptual Prototype 1: Modular Sizing & Circular Manufacturing</h4>
               <p class="text-xs text-slate-500 leading-relaxed">
-                Modular sizing progression demonstrating how the embedded sensor core and mechanical hinges transfer across newly printed structural shells as the child develops, reducing replacement cost to ~$8–$12 USD.
+                Illustrates the scalable physical architecture across chronological child development stages (ages 1 to 7). The high-value core (sensor telemetry pack and micrometric hinges) unclips seamlessly to be mounted into a newly 3D-printed anatomical shell, lowering refitting costs to ~$8–$12 USD per developmental jump.
               </p>
             </div>
           </div>
 
           <!-- Concept 2 -->
           <div class="space-y-3">
-            <div class="rounded-3xl overflow-hidden border border-slate-200 bg-slate-900 shadow-md">
-              <img src="img/BOCETO2.jpeg" alt="Biofeedback and plantargram concept sketch" class="w-full h-80 object-cover object-center hover:scale-105 transition-transform duration-500">
+            <div class="rounded-3xl overflow-hidden border border-slate-200 bg-slate-950 shadow-md group relative cursor-pointer" onclick="openLightbox('img/BOCETO2.jpeg', 'Conceptual Prototype 2: Visual Biofeedback & Dynamic Gait Telemetry')">
+              <img src="img/BOCETO2.jpeg" alt="Biofeedback and plantargram concept sketch" class="w-full h-80 object-cover object-center group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Click to expand
+              </div>
             </div>
             <div class="space-y-1">
-              <h4 class="font-bold text-slate-800 text-sm">Conceptual Prototype 2: Visual Biofeedback & Telemetry</h4>
+              <h4 class="font-bold text-slate-800 text-sm">Conceptual Prototype 2: Real-Time Plantargram & Biofeedback</h4>
               <p class="text-xs text-slate-500 leading-relaxed">
-                Integration of plantar force sensors in the heel with interactive LED biofeedback, stimulating proper gait contact while broadcasting pressure distribution maps to a clinical tablet interface.
+                Depicts the integration of heel-embedded force-sensitive resistors (FSR) with gamified visual feedback (LED arrays). When the infant maintains proper heel contact, visual stimulation rewards the motion, while Bluetooth Low Energy (BLE) transmits quantitative gait telemetry and bilateral weight-distribution maps to a clinical tablet app.
               </p>
             </div>
           </div>
@@ -226,128 +257,91 @@
     <section class="space-y-6">
       <div class="flex items-center gap-3">
         <div class="w-2 h-7 bg-red-600 rounded-full"></div>
-        <h2 class="text-2xl font-bold text-slate-900">3. Feasibility Analysis & National Dataset (INEC)</h2>
+        <h2 class="text-2xl font-bold text-slate-900">3. Feasibility Analysis & National Healthcare Data (INEC)</h2>
       </div>
 
       <div class="glass-card rounded-3xl p-8 space-y-6">
         <div class="space-y-3">
-          <h3 class="text-lg font-bold text-slate-800">Epidemiological Justification from Official Healthcare Data</h3>
+          <h3 class="text-lg font-bold text-slate-800">Public Health Reality: Morbidity & Physical Disability Landscape in Ecuador</h3>
           <p class="text-sm text-slate-600 leading-relaxed">
-            Feasibility was verified through the official <strong>National Hospital Discharges Registry</strong> from the National Institute of Statistics and Census (INEC Ecuador). Analysis of table <strong>Cuadro No. 3.1.20</strong> under diagnostic code <strong>ICD-10: Q66 (Congenital deformities of feet / Clubfoot)</strong> demonstrates significant unmet clinical demand:
+            Biomedical engineering projects must be firmly substantiated by epidemiological metrics. We extracted and examined the official <strong>National Hospital Discharges and Disability Registry (INEC Ecuador, 2024)</strong>, specifically table <strong>Cuadro No. 3.1.18: <em>Número de egresos por discapacidad al momento del ingreso del paciente, según provincia de residencia</em></strong>.
+          </p>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            The dataset highlights critical geographic concentrations of motor/physical disabilities, justifying the establishment of regional digital fabrication hubs for assistive health devices:
           </p>
         </div>
 
-        <!-- Key Metrics from the CSV -->
+        <!-- Key Metrics from INEC.csv -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-center">
-            <span class="text-xs text-slate-500 block">Total Q66 Discharges</span>
-            <span class="text-2xl font-bold text-slate-900">481</span>
-            <span class="text-[11px] text-slate-400 block mt-1">Hospitalized patients nationwide</span>
+          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-1">
+            <span class="text-xs text-slate-500 block uppercase font-semibold">Total Hospital Discharges</span>
+            <span class="text-2xl font-bold text-slate-900">1,130,000+</span>
+            <span class="text-[11px] text-slate-400 block">Total inpatient events (2024)</span>
           </div>
 
-          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-center">
-            <span class="text-xs text-slate-500 block">Guayas Province Hub</span>
-            <span class="text-2xl font-bold text-red-600">191</span>
-            <span class="text-[11px] text-slate-400 block mt-1">39.7% of all recorded cases</span>
+          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-1">
+            <span class="text-xs text-slate-500 block uppercase font-semibold">Azuay (Local Ground)</span>
+            <span class="text-2xl font-bold text-red-600">793</span>
+            <span class="text-[11px] text-slate-400 block">Physical disability discharges</span>
           </div>
 
-          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-center">
-            <span class="text-xs text-slate-500 block">Pichincha Province</span>
-            <span class="text-2xl font-bold text-blue-600">85</span>
-            <span class="text-[11px] text-slate-400 block mt-1">17.7% of total national volume</span>
+          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-1">
+            <span class="text-xs text-slate-500 block uppercase font-semibold">Pichincha (Sierra Hub)</span>
+            <span class="text-2xl font-bold text-blue-600">720</span>
+            <span class="text-[11px] text-slate-400 block">Physical disability discharges</span>
           </div>
 
-          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-center">
-            <span class="text-xs text-slate-500 block">Azuay (Local Scope)</span>
-            <span class="text-2xl font-bold text-emerald-600">9</span>
-            <span class="text-[11px] text-slate-400 block mt-1">Direct testing ground for FabLab</span>
+          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-1">
+            <span class="text-xs text-slate-500 block uppercase font-semibold">Guayas (Coastal Hub)</span>
+            <span class="text-2xl font-bold text-emerald-600">475</span>
+            <span class="text-[11px] text-slate-400 block">Physical disability discharges</span>
           </div>
         </div>
 
-        <!-- Data Download Box -->
+        <!-- Detailed Analytical Text -->
+        <div class="text-xs text-slate-600 leading-relaxed space-y-2 pt-2">
+          <p>
+            When combined with the specific clubfoot registry (ICD-10 code Q66: 481 national cases), these records demonstrate that the southern Austro region (Azuay and surrounding provinces) accounts for a high proportion of physical motor conditions requiring specialized orthopedic orthoses. Developing open-source digital manufacturing templates at FabLab Cuenca offers a viable alternative to alleviate the logistical strain placed on tertiary healthcare centers.
+          </p>
+        </div>
+
+        <!-- Data Download Box for INEC.csv -->
         <div class="p-6 bg-emerald-50/70 rounded-2xl border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div class="space-y-1 text-center sm:text-left">
             <h4 class="font-bold text-emerald-950 text-sm flex items-center gap-2 justify-center sm:justify-start">
               <i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-700"></i>
-              Official Dataset Source: 3.1.20.csv
+              Official Dataset Source: INEC.csv
             </h4>
             <p class="text-xs text-emerald-800">
-              National hospital discharge statistics categorized by three-character ICD-10 list and province of residence.
+              Complete official dataset (Cuadro No. 3.1.18): Discharges by disability status and patient residence province.
             </p>
           </div>
           
           <a 
-            href="3.1.20.csv" 
-            download="3.1.20.csv" 
+            href="INEC.csv" 
+            download="INEC.csv" 
             class="px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-colors whitespace-nowrap"
           >
-            <i data-lucide="download" class="w-4 h-4"></i> Download Raw Dataset (CSV)
+            <i data-lucide="download" class="w-4 h-4"></i> Download Raw Dataset (INEC.csv)
           </a>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 4: CHECKLIST (LISTA DE COMPROBACIÓN) -->
-    <section class="space-y-6">
-      <div class="flex items-center gap-3">
-        <div class="w-2 h-7 bg-red-600 rounded-full"></div>
-        <h2 class="text-2xl font-bold text-slate-900">4. Final Checklist – Week 01</h2>
-      </div>
-
-      <div class="glass-card rounded-3xl p-8 space-y-6">
-        <p class="text-sm text-slate-600">
-          Compliance evaluation table matching the formal Fab Lab engineering requirements for Assignment 01:
-        </p>
-
-        <!-- Markdown Table converted to Clean Tailwind Table -->
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm border-collapse">
-            <thead>
-              <tr class="bg-slate-900 text-white text-xs uppercase tracking-wider">
-                <th class="py-3.5 px-6 rounded-tl-xl font-bold">Requirement</th>
-                <th class="py-3.5 px-6 font-bold text-center">Status</th>
-                <th class="py-3.5 px-6 rounded-tr-xl font-bold">Evidence</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-100 text-xs">
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="py-4 px-6 font-medium text-slate-800">Final project idea outlined</td>
-                <td class="py-4 px-6 text-center font-bold text-emerald-600">✓ Completed</td>
-                <td class="py-4 px-6 text-slate-500">Documented in Final Project & Week 01 concept sections</td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="py-4 px-6 font-medium text-slate-800">Sketches uploaded</td>
-                <td class="py-4 px-6 text-center font-bold text-emerald-600">✓ Completed</td>
-                <td class="py-4 px-6 text-slate-500">Conceptual AI prototypes (BOCETO1.jpeg & BOCETO2.jpeg) integrated</td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="py-4 px-6 font-medium text-slate-800">Website created</td>
-                <td class="py-4 px-6 text-center font-bold text-emerald-600">✓ Completed</td>
-                <td class="py-4 px-6 text-slate-500">Responsive institutional structure in HTML5, Tailwind CSS & Chart.js</td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="py-4 px-6 font-medium text-slate-800">Git repository set up</td>
-                <td class="py-4 px-6 text-center font-bold text-emerald-600">✓ Completed</td>
-                <td class="py-4 px-6 text-slate-500">Configured under Munozzzd/Pagina-Web with public access</td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="py-4 px-6 font-medium text-slate-800">Version control demonstrated</td>
-                <td class="py-4 px-6 text-center font-bold text-emerald-600">✓ Completed</td>
-                <td class="py-4 px-6 text-slate-500">Commit logging, VS Code staging, and deployment pipeline verified</td>
-              </tr>
-              <tr class="hover:bg-slate-50 transition-colors">
-                <td class="py-4 px-6 font-medium text-slate-800">Project feasibility review</td>
-                <td class="py-4 px-6 text-center font-bold text-emerald-600">✓ Completed</td>
-                <td class="py-4 px-6 text-slate-500">Epidemiological validation based on 481 national cases from INEC (3.1.20.csv)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-    </section>
-
   </main>
+
+  <!-- ================= LIGHTBOX MODAL FOR FULL SCREEN IMAGE INSPECTION ================= -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex flex-col items-center justify-center p-4">
+    <div class="max-w-5xl w-full flex items-center justify-between py-2 text-white">
+      <h3 id="lightbox-title" class="text-sm font-semibold tracking-wide">Image Preview</h3>
+      <button onclick="closeLightbox()" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div class="max-w-5xl w-full max-h-[85vh] flex items-center justify-center overflow-auto p-2">
+      <img id="lightbox-img" src="" alt="Full resolution capture" class="max-w-full max-h-[80vh] rounded-2xl border border-white/20 shadow-2xl object-contain">
+    </div>
+  </div>
 
   <!-- ================= FOOTER ================= -->
   <footer class="bg-white border-t border-slate-200 py-6 mt-12">
@@ -358,6 +352,26 @@
 
   <script>
     lucide.createIcons();
+
+    // Lightbox modal logic for inspecting full high-res screenshots
+    function openLightbox(src, title) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-title').innerText = title;
+      document.getElementById('lightbox-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
   </script>
 </body>
 </html>
