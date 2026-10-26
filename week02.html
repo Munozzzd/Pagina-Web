@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 02: CAD Tools Exploration & Affinity Ideation - Kurimanya Kids</title>
+  
+  <!-- Tailwind CSS & Lucide Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    
+    h1, h2, h3, h4, .heading-font {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .tech-grid-bg {
+      background-image: 
+        radial-gradient(rgba(148, 163, 184, 0.2) 1px, transparent 1px),
+        linear-gradient(to right, rgba(226, 232, 240, 0.4) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(226, 232, 240, 0.4) 1px, transparent 1px);
+      background-size: 24px 24px, 48px 48px, 48px 48px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .crop-preview {
+      object-fit: cover;
+      object-position: center;
+      height: 220px;
+      width: 100%;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+
+    .crop-preview:hover {
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<body class="tech-grid-bg min-h-screen flex flex-col selection:bg-red-100 selection:text-red-700">
+
+  <!-- ================= TOP INSTITUTIONAL BAR ================= -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <div class="flex items-center gap-4">
+          <a href="index.html" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-red-50 text-slate-700 hover:text-red-600 transition-colors text-xs font-semibold">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Back to Portfolio</span>
+          </a>
+          <div class="h-5 w-px bg-slate-200"></div>
+          <span class="text-xs font-bold uppercase tracking-wider text-red-600">Weekly Documentation</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-medium text-slate-500">Kurimanya Kids • FabLab Cuenca</span>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+    <!-- Document Header -->
+    <div class="border-b border-slate-200 pb-8 space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold tracking-wide uppercase">
+        Assignment 02
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+        Computer-Aided Design (CAD), Tool Exploration & Affinity Ideation
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-3xl">
+        Systematic exploration of 2D/3D digital design software, parametric modeling benchmarks, and user-centered problem synthesis through Affinity Diagrams (KJ Method) and failure mode classification matrices.
+      </p>
+      <div class="flex flex-wrap gap-4 text-xs text-slate-500 pt-2 font-medium">
+        <span><strong>Institution:</strong> Universidad de Cuenca</span>
+        <span>•</span>
+        <span><strong>Course:</strong> Research & Development</span>
+        <span>•</span>
+        <span><strong>Lab:</strong> FabLab Cuenca</span>
+      </div>
+    </div>
+
+    <!-- SECTION 1: IDEATION METHODOLOGY (AFFINITY DIAGRAM & FAILURE CLASSIFICATION) -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-7 bg-red-600 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-slate-900">1. Problem Formulation & Ideation: Affinity Diagram (KJ Method)</h2>
+      </div>
+
+      <div class="glass-card rounded-3xl p-8 space-y-6">
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-800">Collaborative Brainstorming & Requirement Clustering</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Prior to CAD geometry creation, our team conducted an unstructured ideation session where each member proposed critical functional requirements, clinical constraints, and user vulnerabilities on sticky notes. To structure this qualitative feedback, we applied the <strong>Affinity Diagram (KJ Method)</strong>, grouping interconnected concepts into thematic clusters and translating them into an auditable <strong>Failure Mode Classification Matrix (Depuración de Fallas)</strong>.
+          </p>
+        </div>
+
+        <!-- Sticky Notes & Google Sheets Gallery -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+          
+          <!-- Image 1: NOTAS.jpeg -->
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/NOTAS.jpeg', 'Phase 1: Individual Brainstorming Sticky Notes')">
+              <img src="img/NOTAS.jpeg" alt="Sticky notes brainstorming" class="crop-preview">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Click to expand
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">Phase 1: Divergent Idea Generation</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Initial collection of raw pain points written on individual post-its: high device acquisition cost, skin pressure sores, and brace abandonment.
+            </p>
+          </div>
+
+          <!-- Image 2: NOTAS1.jpeg -->
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/NOTAS1.jpeg', 'Phase 2: Affinity Grouping & Clustering')">
+              <img src="img/NOTAS1.jpeg" alt="Affinity grouping" class="crop-preview">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Click to expand
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">Phase 2: KJ Method Grouping</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Consolidation of cards into four primary problem clusters: <em>Design & Biomechanical Quality</em>, <em>Affordable Pricing</em>, <em>Growth Scalability</em>, and <em>Infant Ergonomic Wellbeing</em>.
+            </p>
+          </div>
+
+          <!-- Image 3: NOTAS2.jpg -->
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/NOTAS2.jpg', 'Phase 3: Failure Mode Matrix (Depuración de Fallas)')">
+              <img src="img/NOTAS2.jpg" alt="Failure mode classification spreadsheet" class="crop-preview">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Click to expand
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">Phase 3: Quantitative Prioritization</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Conversion into an algorithmic spreadsheet ranking failure categories (FC001: Design, FC002: Cost, FC003: Scalability, FC004: Comfort) to guide engineering requirements.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: DIGITAL DESIGN SOFTWARE COMPARATIVE BENCHMARK -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-7 bg-red-600 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-slate-900">2. Digital Design & Fabrication Software Benchmark</h2>
+      </div>
+
+      <div class="glass-card rounded-3xl p-8 space-y-6">
+        <p class="text-sm text-slate-600 leading-relaxed">
+          During Week 2, our objective was to experiment with multiple CAD, raster, vector, rendering, and simulation environments to determine which tools best serve each stage of the Kurimanya Kids development pipeline. Below is our comparative assessment:
+        </p>
+
+        <!-- Markdown Table from Report converted to Tailwind HTML Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-900 text-white text-xs uppercase tracking-wider">
+                <th class="py-3.5 px-4 rounded-tl-xl font-bold">Software</th>
+                <th class="py-3.5 px-4 font-bold">Category</th>
+                <th class="py-3.5 px-6 font-bold">Primary Utility</th>
+                <th class="py-3.5 px-4 font-bold">License</th>
+                <th class="py-3.5 px-4 rounded-tr-xl font-bold text-center">Learning Curve</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-xs">
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-800">GIMP</td>
+                <td class="py-3.5 px-4 text-slate-600">Raster Editor</td>
+                <td class="py-3.5 px-6 text-slate-600">Image processing, layer masking, asset cropping, and texture filtering</td>
+                <td class="py-3.5 px-4 text-emerald-600 font-semibold">Open-Source (Free)</td>
+                <td class="py-3.5 px-4 text-center font-medium text-amber-600">Medium</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-800">Krita</td>
+                <td class="py-3.5 px-4 text-slate-600">Raster / Digital Painting</td>
+                <td class="py-3.5 px-6 text-slate-600">Freehand concept sketching and biomechanical conceptual illustrations</td>
+                <td class="py-3.5 px-4 text-emerald-600 font-semibold">Open-Source (Free)</td>
+                <td class="py-3.5 px-4 text-center font-medium text-emerald-600">Low - Medium</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-800">Inkscape</td>
+                <td class="py-3.5 px-4 text-slate-600">Vector Graphics</td>
+                <td class="py-3.5 px-6 text-slate-600">Vector iconography, logo design, path boolean operations, and laser cutter vector preparation</td>
+                <td class="py-3.5 px-4 text-emerald-600 font-semibold">Open-Source (Free)</td>
+                <td class="py-3.5 px-4 text-center font-medium text-amber-600">Medium</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-800">LibreCAD</td>
+                <td class="py-3.5 px-4 text-slate-600">2D CAD</td>
+                <td class="py-3.5 px-6 text-slate-600">Lightweight 2D technical drawings, dimensioning, and CNC toolpath profiles</td>
+                <td class="py-3.5 px-4 text-emerald-600 font-semibold">Open-Source (Free)</td>
+                <td class="py-3.5 px-4 text-center font-medium text-emerald-600">Low - Medium</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-800">AutoCAD</td>
+                <td class="py-3.5 px-4 text-slate-600">2D/3D Industrial CAD</td>
+                <td class="py-3.5 px-6 text-slate-600">High-precision orthogonal drafting, geometric constraints, and standard architectural layouts</td>
+                <td class="py-3.5 px-4 text-blue-600 font-semibold">Proprietary / Educational</td>
+                <td class="py-3.5 px-4 text-center font-medium text-amber-600">Medium</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-800">FreeCAD</td>
+                <td class="py-3.5 px-4 text-slate-600">Parametric 3D CAD</td>
+                <td class="py-3.5 px-6 text-slate-600">Feature-based solid modeling with fully constrained sketches (Part Design Workbench)</td>
+                <td class="py-3.5 px-4 text-emerald-600 font-semibold">Open-Source (Free)</td>
+                <td class="py-3.5 px-4 text-center font-medium text-red-600">Medium - High</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-800">Autodesk Fusion 360</td>
+                <td class="py-3.5 px-4 text-slate-600">Integrated CAD / CAM / CAE</td>
+                <td class="py-3.5 px-6 text-slate-600">Parametric solid modeling, freeform T-Splines surface sculpting, assemblies, and FEA simulation</td>
+                <td class="py-3.5 px-4 text-blue-600 font-semibold">Commercial / Educational</td>
+                <td class="py-3.5 px-4 text-center font-medium text-amber-600">Medium</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-800">Blender</td>
+                <td class="py-3.5 px-4 text-slate-600">3D Mesh Modeling & Render</td>
+                <td class="py-3.5 px-6 text-slate-600">Organic polygonal modeling, photorealistic rendering (Cycles/Eevee), and dynamic mechanism animation</td>
+                <td class="py-3.5 px-4 text-emerald-600 font-semibold">Open-Source (Free)</td>
+                <td class="py-3.5 px-4 text-center font-medium text-red-600">High</td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="py-3.5 px-4 font-bold text-slate-800">Wokwi / Tinkercad Circuits</td>
+                <td class="py-3.5 px-4 text-slate-600">Firmware & Circuit Simulation</td>
+                <td class="py-3.5 px-6 text-slate-600">Virtual prototyping of ESP32 / Arduino firmware, breadboarding, and FSR sensor validation</td>
+                <td class="py-3.5 px-4 text-emerald-600 font-semibold">Web-Based (Free)</td>
+                <td class="py-3.5 px-4 text-center font-medium text-emerald-600">Low</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: PRACTICAL CAD EXERCISES & MODELING GALLERY (TOOL BY TOOL) -->
+    <section class="space-y-8">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-7 bg-red-600 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-slate-900">3. Practical Hands-On Exercises by Design Environment</h2>
+      </div>
+
+      <!-- 3.1 AUTOCAD -->
+      <div class="glass-card rounded-3xl p-8 space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-800">AutoCAD 2024: 2D Parametric Drafting & Icon Vectorization</h3>
+            <p class="text-xs text-slate-500">Orthogonal drafting, coordinate offset tracing, and precise arc/fillet reconstruction</p>
+          </div>
+          <span class="px-3 py-1 bg-red-50 text-red-600 text-xs rounded-full font-bold">2D Vector CAD</span>
+        </div>
+
+        <p class="text-sm text-slate-600 leading-relaxed">
+          We used AutoCAD to practice geometric constraint alignment, relative Cartesian coordinate inputs, and arc reconstruction. The exercise focused on drafting the Android system logo from technical primitives (lines, tangent circles, and trimmed boundaries), validating snapping tools and layer hierarchy management.
+        </p>
+
+        <!-- 5 Screenshots of AutoCAD -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          
+          <div class="space-y-1.5">
+            <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/AUTOCAD.png', 'AutoCAD Step 1: Initial Baseline & Centerlines')">
+              <img src="img/AUTOCAD.png" alt="AutoCAD baseline" class="crop-preview !h-36">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-semibold gap-1">
+                <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Inspect
+              </div>
+            </div>
+            <p class="text-[11px] font-semibold text-slate-700">1. Coordinate Grid Setup</p>
+            <p class="text-[10px] text-slate-500">Establishing origin points and horizontal alignment baselines.</p>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/AUTOCAD1.png', 'AutoCAD Step 2: Body Contour & Parallel Offsets')">
+              <img src="img/AUTOCAD1.png" alt="AutoCAD offsets" class="crop-preview !h-36">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-semibold gap-1">
+                <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Inspect
+              </div>
+            </div>
+            <p class="text-[11px] font-semibold text-slate-700">2. Torso Geometry</p>
+            <p class="text-[10px] text-slate-500">Executing offset commands to define outer boundary margins.</p>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/AUTOCAD2.png', 'AutoCAD Step 3: Cranial Arc & Tangent Circles')">
+              <img src="img/AUTOCAD2.png" alt="AutoCAD cranial arc" class="crop-preview !h-36">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-semibold gap-1">
+                <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Inspect
+              </div>
+            </div>
+            <p class="text-[11px] font-semibold text-slate-700">3. Head Hemisphere</p>
+            <p class="text-[10px] text-slate-500">Drafting tangent circles and center-point radius constraints.</p>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/AUTOCAD3.png', 'AutoCAD Step 4: Trimming & Fillet Radii')">
+              <img src="img/AUTOCAD3.png" alt="AutoCAD trimming" class="crop-preview !h-36">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-semibold gap-1">
+                <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Inspect
+              </div>
+            </div>
+            <p class="text-[11px] font-semibold text-slate-700">4. Boundary Trimming</p>
+            <p class="text-[10px] text-slate-500">Applying the Trim tool to remove overlapping curves and add fillets.</p>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/AUTOCAD4.png', 'AutoCAD Step 5: Final Assembled Vector Asset')">
+              <img src="img/AUTOCAD4.png" alt="AutoCAD final piece" class="crop-preview !h-36">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-semibold gap-1">
+                <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Inspect
+              </div>
+            </div>
+            <p class="text-[11px] font-semibold text-slate-700">5. Completed Vector Profile</p>
+            <p class="text-[10px] text-slate-500">Final closed polyline geometry ready for DXF export.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 3.2 LIBRECAD -->
+      <div class="glass-card rounded-3xl p-8 space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-800">LibreCAD: Lightweight Open-Source 2D Profiling</h3>
+            <p class="text-xs text-slate-500">Minimalist CAD engine for direct 2D laser-cutting DXF preparation</p>
+          </div>
+          <span class="px-3 py-1 bg-emerald-50 text-emerald-600 text-xs rounded-full font-bold">Open-Source CAD</span>
+        </div>
+
+        <p class="text-sm text-slate-600 leading-relaxed">
+          LibreCAD was evaluated as a zero-cost, lightweight alternative for FabLab vector workflows. We constructed a mechanical mounting bracket utilizing absolute coordinate inputs, circle tangencies, and segment intersections to verify DXF interoperability.
+        </p>
+
+        <!-- 3 Screenshots of LibreCAD -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/LIBRECAD.png', 'LibreCAD Step 1: Geometric Primitives & Constraints')">
+              <img src="img/LIBRECAD.png" alt="LibreCAD primitives" class="crop-preview">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">1. Perimeter Layout & Intersections</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Constructing orthogonal reference segments and circle centers at exact dimensional coordinates.
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/LIBRECAD1.png', 'LibreCAD Step 2: Tangency Trimming')">
+              <img src="img/LIBRECAD1.png" alt="LibreCAD trimming" class="crop-preview">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">2. Boolean Filleting & Clean-up</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Trimming superfluous circular segments to produce a continuous planar mechanical outline.
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/LIBRECAD2.png', 'LibreCAD Step 3: Final 2D Part Profile')">
+              <img src="img/LIBRECAD2.png" alt="LibreCAD final part" class="crop-preview">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">3. Validated 2D DXF Contour</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Final closed outline verified with zero non-manifold gaps, directly compatible with CO2 laser cutters.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 3.3 FREECAD -->
+      <div class="glass-card rounded-3xl p-8 space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-800">FreeCAD: Parametric Solid Modeling & PartDesign</h3>
+            <p class="text-xs text-slate-500">Fully constrained sketches, pads, pockets, and edge chamfering</p>
+          </div>
+          <span class="px-3 py-1 bg-purple-50 text-purple-600 text-xs rounded-full font-bold">Parametric 3D Solid</span>
+        </div>
+
+        <p class="text-sm text-slate-600 leading-relaxed">
+          In FreeCAD, we focused on the <em>Part Design Workbench</em>. We generated a fully constrained 2D sketch with dimensional equality constraints, extruded it into a 3D solid pad, and executed cylindrical corner pocket cuts to model a mounting baseplate suitable for additive manufacturing.
+        </p>
+
+        <!-- 3 Screenshots of FreeCAD -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/FREECAD.png', 'FreeCAD Step 1: Fully Constrained Sketcher')">
+              <img src="img/FREECAD.png" alt="FreeCAD sketcher" class="crop-preview">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">1. Constrained 2D Sketch</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Establishing geometric symmetry and dimensional constraints to reach 0 degrees of freedom (fully green sketch).
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/FREECAD1.png', 'FreeCAD Step 2: Pad Extrusion & Fillets')">
+              <img src="img/FREECAD1.png" alt="FreeCAD extrusion" class="crop-preview">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">2. Solid Pad & Edge Rounding</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Extruding the planar profile along the normal Z-axis and applying structural corner fillet radii.
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/FREECAD2.png', 'FreeCAD Step 3: Pocket Holes & Finished Plate')">
+              <img src="img/FREECAD2.png" alt="FreeCAD final solid" class="crop-preview">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">3. Completed Parametric Part</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Adding counterbored mounting holes via Pocket operations, producing a watertight solid for 3D printing.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 3.4 AUTODESK FUSION 360 -->
+      <div class="glass-card rounded-3xl p-8 space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-800">Autodesk Fusion 360: Cloud CAD/CAM & Anatomical Modeling</h3>
+            <p class="text-xs text-slate-500">Integrated sketches, revolving features, organic sweeps, and rendering</p>
+          </div>
+          <span class="px-3 py-1 bg-blue-50 text-blue-600 text-xs rounded-full font-bold">Cloud Parametric CAD</span>
+        </div>
+
+        <p class="text-sm text-slate-600 leading-relaxed">
+          Fusion 360 represents the primary design suite selected for the Kurimanya Kids orthosis. During this exploratory exercise, we practiced multi-plane sketching, extrusions, revolves, and face drafting to create a circular interface plate with relief features and mounting slots.
+        </p>
+
+        <!-- 5 Screenshots of Fusion 360 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          
+          <div class="space-y-1.5">
+            <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/FUSION.png', 'Fusion 360 Step 1: Base Sketch & Radial Construction')">
+              <img src="img/FUSION.png" alt="Fusion base sketch" class="crop-preview !h-36">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-semibold gap-1">
+                <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Inspect
+              </div>
+            </div>
+            <p class="text-[11px] font-semibold text-slate-700">1. Centerline & Symmetry</p>
+            <p class="text-[10px] text-slate-500">Creating radial construction lines on the horizontal workplane.</p>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/FUSION1.png', 'Fusion 360 Step 2: Facial Features Sketch')">
+              <img src="img/FUSION1.png" alt="Fusion sketch" class="crop-preview !h-36">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-semibold gap-1">
+                <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Inspect
+              </div>
+            </div>
+            <p class="text-[11px] font-semibold text-slate-700">2. Spline Curves</p>
+            <p class="text-[10px] text-slate-500">Tracing organic internal curves using fitted control-point splines.</p>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/FUSION2.png', 'Fusion 360 Step 3: Revolve & Base Solid')">
+              <img src="img/FUSION2.png" alt="Fusion revolve" class="crop-preview !h-36">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-semibold gap-1">
+                <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Inspect
+              </div>
+            </div>
+            <p class="text-[11px] font-semibold text-slate-700">3. Profile Revolve</p>
+            <p class="text-[10px] text-slate-500">Extruding a 360° circular disc from a cross-sectional profile.</p>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/FUSION3.png', 'Fusion 360 Step 4: Face Projection & Cutout')">
+              <img src="img/FUSION3.png" alt="Fusion cutouts" class="crop-preview !h-36">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-semibold gap-1">
+                <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Inspect
+              </div>
+            </div>
+            <p class="text-[11px] font-semibold text-slate-700">4. Selective Extrude Cut</p>
+            <p class="text-[10px] text-slate-500">Projecting sketches onto curved faces to produce blind pockets.</p>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/FUSION4.png', 'Fusion 360 Step 5: Rendered Solid Disk')">
+              <img src="img/FUSION4.png" alt="Fusion render" class="crop-preview !h-36">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-semibold gap-1">
+                <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Inspect
+              </div>
+            </div>
+            <p class="text-[11px] font-semibold text-slate-700">5. Shaded Solid Model</p>
+            <p class="text-[10px] text-slate-500">Final component render ready for STL slicing and CAM simulation.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 3.5 BLENDER -->
+      <div class="glass-card rounded-3xl p-8 space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-800">Blender 4.x: Mesh Modeling, Lighting & Rendering</h3>
+            <p class="text-xs text-slate-500">Subdivision surfaces, edge loop extrusion, and viewport shading</p>
+          </div>
+          <span class="px-3 py-1 bg-amber-50 text-amber-600 text-xs rounded-full font-bold">Polygonal 3D / Render</span>
+        </div>
+
+        <p class="text-sm text-slate-600 leading-relaxed">
+          Blender was evaluated for high-fidelity conceptual rendering and kinematic assembly animations. We modeled a trampoline structure starting from a primitive cylinder mesh, applying inset faces, extrusions along surface normals, loop cuts, and three-point studio lighting.
+        </p>
+
+        <!-- 3 Screenshots of Blender -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/BLEDER.png', 'Blender Step 1: Base Primitive & Viewport Setup')">
+              <img src="img/BLEDER.png" alt="Blender viewport" class="crop-preview">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">1. Base Mesh Initialization</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Configuring the perspective camera, world environment lighting, and scaling the base primitive in Edit Mode.
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/BLENDER1.png', 'Blender Step 2: Loop Cuts & Normal Extrusions')">
+              <img src="img/BLENDER1.png" alt="Blender modeling" class="crop-preview">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">2. Edge Loops & Structural Legs</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Adding loop rings (Ctrl + R) and extruding face clusters downward to construct supporting legs.
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-950 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/BLENDER2.png', 'Blender Step 3: Material Shading & Final Render')">
+              <img src="img/BLENDER2.png" alt="Blender final render" class="crop-preview">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">3. Completed Trampoline Model</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Assigning BSDF surface shaders and generating a real-time Eevee viewport preview of the finished asset.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: LESSONS LEARNED & SELECTION FOR KURIMANYA KIDS -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-7 bg-red-600 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-slate-900">4. Conclusions & Project Toolchain Selection</h2>
+      </div>
+
+      <div class="glass-card rounded-3xl p-8 space-y-6">
+        <p class="text-sm text-slate-600 leading-relaxed">
+          Through hands-on exploration across diverse CAD platforms, our team reached definitive conclusions regarding software suitability for medical hardware manufacturing at FabLab Cuenca:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-600 leading-relaxed">
+          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+              <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i> Primary CAD Suite: Fusion 360 + FreeCAD
+            </h4>
+            <p>
+              <strong>Autodesk Fusion 360</strong> was selected as our primary tool for developing the smart orthosis due to its superior cloud collaboration, T-Splines organic ergonomic sculpting (critical for adapting shoe shells to infant feet), and native CAM export for 3D slicing. <strong>FreeCAD</strong> will be maintained in parallel to ensure open-source reproducibility.
+            </p>
+          </div>
+
+          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+              <i data-lucide="check-circle" class="w-4 h-4 text-blue-600"></i> Vector Profiling: AutoCAD + LibreCAD
+            </h4>
+            <p>
+              For rapid production of biocompatible leather straps and foam padding, <strong>LibreCAD and AutoCAD</strong> allow us to generate precise 2D DXF cut sheets that integrate directly into the FabLab laser cutter software (RDWorks) without polygon mesh translation errors.
+            </p>
+          </div>
+        </div>
+
+        <!-- Google Drive External Repository Download Box -->
+        <div class="p-6 bg-slate-900 text-white rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="space-y-1 text-center sm:text-left">
+            <h4 class="font-bold text-white text-sm flex items-center gap-2 justify-center sm:justify-start">
+              <i data-lucide="folder-archive" class="w-4 h-4 text-red-500"></i>
+              Original Source CAD Files (Google Drive)
+            </h4>
+            <p class="text-xs text-slate-400">
+              Access the complete archive containing raw design assets (<code>.dwg</code>, <code>.dxf</code>, <code>.FCStd</code>, <code>.blend</code>, and <code>.f3d</code>).
+            </p>
+          </div>
+          
+          <a 
+            href="https://drive.google.com" 
+            target="_blank"
+            class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-colors whitespace-nowrap"
+          >
+            <i data-lucide="external-link" class="w-4 h-4"></i> Open Google Drive Folder
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= LIGHTBOX MODAL FOR FULL SCREEN IMAGE INSPECTION ================= -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex flex-col items-center justify-center p-4">
+    <div class="max-w-5xl w-full flex items-center justify-between py-2 text-white">
+      <h3 id="lightbox-title" class="text-sm font-semibold tracking-wide">Image Preview</h3>
+      <button onclick="closeLightbox()" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div class="max-w-5xl w-full max-h-[85vh] flex items-center justify-center overflow-auto p-2">
+      <img id="lightbox-img" src="" alt="Full resolution capture" class="max-w-full max-h-[80vh] rounded-2xl border border-white/20 shadow-2xl object-contain">
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+    <div class="max-w-6xl mx-auto px-4 text-center text-xs text-slate-400">
+      Kurimanya Kids • Smart Pediatric Orthosis • FabLab Cuenca • Universidad de Cuenca
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Lightbox modal logic for inspecting full high-res screenshots
+    function openLightbox(src, title) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-title').innerText = title;
+      document.getElementById('lightbox-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
