@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 04: Digital Fabrication Principles - Flat-Pack, 3D Scanning & Delta Printing</title>
+  
+  <!-- Tailwind CSS & Lucide Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    
+    h1, h2, h3, h4, .heading-font {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .tech-grid-bg {
+      background-image: 
+        radial-gradient(rgba(148, 163, 184, 0.2) 1px, transparent 1px),
+        linear-gradient(to right, rgba(226, 232, 240, 0.4) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(226, 232, 240, 0.4) 1px, transparent 1px);
+      background-size: 24px 24px, 48px 48px, 48px 48px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .crop-preview {
+      object-fit: cover;
+      object-position: center;
+      height: 240px;
+      width: 100%;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+
+    .crop-preview:hover {
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<body class="tech-grid-bg min-h-screen flex flex-col selection:bg-red-100 selection:text-red-700">
+
+  <!-- ================= TOP INSTITUTIONAL BAR ================= -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <div class="flex items-center gap-4">
+          <a href="index.html" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-red-50 text-slate-700 hover:text-red-600 transition-colors text-xs font-semibold">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Back to Portfolio</span>
+          </a>
+          <div class="h-5 w-px bg-slate-200"></div>
+          <span class="text-xs font-bold uppercase tracking-wider text-red-600">Weekly Documentation</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-medium text-slate-500">FabLab Cuenca • Universidad de Cuenca</span>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+    <!-- Document Header -->
+    <div class="border-b border-slate-200 pb-8 space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold tracking-wide uppercase">
+        Assignment 04
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+        Digital Fabrication Principles: Flat-Pack Furniture, 3D Scanning & Delta 3D Printing
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-3xl">
+        Hands-on technical workshop exploring Ready-to-Assemble (RTA) flat-pack product design inspired by IKEA, optical 3D facial digitizing via CR Studio, and calibration workflows for high-speed Delta additive manufacturing systems.
+      </p>
+      <div class="flex flex-wrap gap-4 text-xs text-slate-500 pt-2 font-medium">
+        <span><strong>Institution:</strong> Universidad de Cuenca</span>
+        <span>•</span>
+        <span><strong>Course:</strong> Research & Development</span>
+        <span>•</span>
+        <span><strong>Facility:</strong> FabLab Cuenca</span>
+      </div>
+    </div>
+
+    <!-- SECTION 1: IKEA FLAT-PACK FURNITURE CONCEPT (BEAR CHAIR FOR 5-YEAR-OLDS) -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-7 bg-red-600 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-slate-900">1. Flat-Pack Furniture Design (IKEA Philosophy)</h2>
+      </div>
+
+      <div class="glass-card rounded-3xl p-8 space-y-6">
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-800">Anthropometric Child Seating (5 Years Old) & Interlocking Joinery</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            During this assignment, we analyzed the industrial principles behind <strong>IKEA Ready-to-Assemble (RTA) furniture</strong>: spatial optimization through flat packaging, durable engineered wood materials, and structural joinery requiring minimal fasteners. Applying these concepts, we conceptualized and dimensioned a wooden children's armchair tailored to the anthropometric measurements of a 5-year-old child (popliteal height: ~28–30 cm; seat depth: ~27 cm).
+          </p>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            To create an inviting and functional product, the chair incorporates an organic bear silhouette on the backrest. The structural panels are designed for precision CNC router fabrication from 15 mm birch plywood, utilizing press-fit slot-and-tab joints for intuitive assembly.
+          </p>
+        </div>
+
+        <!-- 4 Image Cards: Sketches & AI Concept -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
+          
+          <!-- Image 1: BOCETO.jpeg -->
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/BOCETO.jpeg', 'Step 1: Hand-Drawn Component Breakdown')">
+              <img src="img/BOCETO.jpeg" alt="Orthographic sketch" class="crop-preview" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">1. Hand-Drawn Part Breakdown</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Initial sketch decomposing the chair into core cuttable parts: bear-profile backrest, base seat plate, and slotted side panels.
+            </p>
+          </div>
+
+          <!-- Image 2: BOCETO1.jpeg -->
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/BOCETO1.jpeg', 'Step 2: Proportions & Ergonomic Sizing')">
+              <img src="img/BOCETO1.jpeg" alt="Drafting session" class="crop-preview" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">2. Anthropometric Proportions</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Team layout drafting defining seat clearance, armrest height, and lumbar incline to support natural posture for early childhood.
+            </p>
+          </div>
+
+          <!-- Image 3: BOCETO2.jpeg -->
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/BOCETO2.jpeg', 'Step 3: Geometry & Curvature Refinement')">
+              <img src="img/BOCETO2.jpeg" alt="Refining contours" class="crop-preview" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">3. Contouring & CNC Radii</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Rounding external edges and establishing tool-radius compensation (dog-bone corners) on interior joints for CNC milling bits.
+            </p>
+          </div>
+
+          <!-- Image 4: BOCETOIA.jpeg -->
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/BOCETOIA.jpeg', 'Step 4: AI Concept Render of Assembled Bear Chair')">
+              <img src="img/BOCETOIA.jpeg" alt="Conceptual render" class="crop-preview" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">4. AI Concept Visualization</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Generative visualization demonstrating the final assembled piece in curved plywood with rounded child-safe edges and fitted cushions.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 3D OPTICAL SCANNING (CR STUDIO) -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-7 bg-red-600 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-slate-900">2. Optical 3D Scanning & Mesh Acquisition (CR Studio)</h2>
+      </div>
+
+      <div class="glass-card rounded-3xl p-8 space-y-6">
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-800">Facial Scanning Protocol & Point Cloud Processing</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Unlike manual contact measurement, optical 3D scanning captures freeform organic surfaces with millimetric accuracy. In this module, we deployed an optical structured-light 3D scanner coupled with <strong>CR Studio</strong> software to capture the human face. The workflow encompasses:
+          </p>
+          <ul class="text-xs text-slate-600 list-disc pl-5 space-y-1.5 leading-relaxed">
+            <li><strong>Exposure & Sensitivity Calibration:</strong> Tuning infrared sensor gain to balance lighting reflections on human skin without overexposing highlights.</li>
+            <li><strong>Working Distance Optimization:</strong> Maintaining the scanner within the recommended depth window (400–700 mm) indicated by CR Studio's visual tracking indicator.</li>
+            <li><strong>Trajectory Tracking:</strong> Executing a continuous 180° sweep around the subject while maintaining facial stillness to avoid point misalignment and tracking loss.</li>
+          </ul>
+        </div>
+
+        <!-- 2 Image Cards: Scanning Setup -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
+          
+          <!-- Image 1: ESCANEO.jpeg -->
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/ESCANEO.jpeg', 'CR Studio Interface & Scanning Configuration')">
+              <img src="img/ESCANEO.jpeg" alt="CR Studio configuration" class="crop-preview" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">1. CR Studio Software Pre-Flight</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Configuring live framerate, frame registration parameters, and point cloud sampling density on the workstation before scan initialization.
+            </p>
+          </div>
+
+          <!-- Image 2: ESCANEO1.jpeg -->
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/ESCANEO1.jpeg', 'Subject Positioning & Live Facial Digitizing')">
+              <img src="img/ESCANEO1.jpeg" alt="Live facial scanning" class="crop-preview" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">2. Live Facial Digitizing</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Positioning the teammate on a fixed rotational axis while operating the optical scanner on a stable tripod to capture nasal, cheek, and jaw contours.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: ADDITIVE MANUFACTURING & DELTA PRINTER CALIBRATION (FLSUN) -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-7 bg-red-600 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-slate-900">3. Additive Manufacturing: Delta 3D Printer Setup & Calibration (FLSUN)</h2>
+      </div>
+
+      <div class="glass-card rounded-3xl p-8 space-y-6">
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-slate-800">Delta Kinematics vs. Cartesian Architecture</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            In standard Cartesian 3D printers, axes move linearly on orthogonal X, Y, and Z rails. In contrast, the <strong>FLSUN Delta printer</strong> features three parallel articulated arms moving in coordinated trigonometric vectors along vertical pillars to position a lightweight effector. This provides significant advantages: a stationary circular build plate, reduced moving mass, and exceptionally high travel and print accelerations.
+          </p>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            During our hands-on session, the team executed the complete calibration cycle required to ensure high-adhesion first layers:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-xs text-slate-600 space-y-1">
+              <span class="font-bold text-slate-800 block">1. Auto Bed Leveling (ABL)</span>
+              Automated probing across a multi-point mesh on the circular heated bed to compensate for microscopic surface tilts.
+            </div>
+            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-xs text-slate-600 space-y-1">
+              <span class="font-bold text-slate-800 block">2. Z-Offset Fine Tuning</span>
+              Calibrating the exact nozzle clearance relative to the textured PEI sheet to achieve the ideal filament squish.
+            </div>
+            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-xs text-slate-600 space-y-1">
+              <span class="font-bold text-slate-800 block">3. Extrusion & Thermal Check</span>
+              Preheating the hotend to 205°C (PLA) and purging old material to verify uniform laminar melt-flow before execution.
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Image Cards: FLSUN Operation -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+          
+          <!-- Image 1: IMPRESION.jpeg -->
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/IMPRESION.jpeg', 'Team Inspection of FLSUN Delta Kinematics')">
+              <img src="img/IMPRESION.jpeg" alt="Team inspecting FLSUN" class="crop-preview" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">1. Kinematic Structure Inspection</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Analyzing the triangular vertical columns, belt tension, and magnetic ball joints connecting the three effector arms.
+            </p>
+          </div>
+
+          <!-- Image 2: IMPRESION1.jpeg -->
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/IMPRESION1.jpeg', 'Touchscreen Calibration & Firmware Parameters')">
+              <img src="img/IMPRESION1.jpeg" alt="Touchscreen operation" class="crop-preview" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">2. Interface & Homing Setup</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Navigating firmware touch menus to home the three axes simultaneously and initiate automated bed compensation routines.
+            </p>
+          </div>
+
+          <!-- Image 3: IMPRESION2.jpeg -->
+          <div class="space-y-2">
+            <div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 shadow-sm relative group cursor-pointer" onclick="openLightbox('img/IMPRESION2.jpeg', 'Close-Up: Delta Effector Extruding on Circular Bed')">
+              <img src="img/IMPRESION2.jpeg" alt="Effector printing close-up" class="crop-preview" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5 backdrop-blur-[2px]">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i> Inspect
+              </div>
+            </div>
+            <h4 class="font-bold text-slate-800 text-xs">3. First Layer Extrusion</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Close-up view of the high-speed printhead depositing perimeter lines on the stationary circular bed, validating Z-offset height.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: TECHNICAL LESSONS & CONCLUSIONS -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-7 bg-red-600 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-slate-900">4. Key Learnings & Practical Takeaways</h2>
+      </div>
+
+      <div class="glass-card rounded-3xl p-8 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-600 leading-relaxed">
+          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+              <i data-lucide="box" class="w-4 h-4 text-amber-600"></i> Flat-Pack RTA Logic
+            </h4>
+            <p>
+              Designing flat-pack wooden products requires strict accounting for sheet thickness tolerances (+/- 0.5 mm) and mechanical dog-bone cutouts so parts assemble without manual filing or glue.
+            </p>
+          </div>
+
+          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+              <i data-lucide="scan" class="w-4 h-4 text-blue-600"></i> Optical 3D Scanning
+            </h4>
+            <p>
+              Skin surface registration is highly sensitive to ambient lighting and movement. Steady sweeps with controlled infrared exposure in CR Studio prevent mesh distortion and surface holes.
+            </p>
+          </div>
+
+          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+            <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+              <i data-lucide="printer" class="w-4 h-4 text-emerald-600"></i> Delta Printing Dynamics
+            </h4>
+            <p>
+              The FLSUN's stationary build plate eliminates inertial shaking along the Y-axis, enabling fast layer deposition as long as bed leveling and Z-offset calibration are carefully maintained.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= LIGHTBOX MODAL FOR FULL SCREEN IMAGE INSPECTION ================= -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex flex-col items-center justify-center p-4">
+    <div class="max-w-5xl w-full flex items-center justify-between py-2 text-white">
+      <h3 id="lightbox-title" class="text-sm font-semibold tracking-wide">Image Preview</h3>
+      <button onclick="closeLightbox()" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div class="max-w-5xl w-full max-h-[85vh] flex items-center justify-center overflow-auto p-2">
+      <img id="lightbox-img" src="" alt="Full resolution capture" class="max-w-full max-h-[80vh] rounded-2xl border border-white/20 shadow-2xl object-contain">
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+    <div class="max-w-6xl mx-auto px-4 text-center text-xs text-slate-400">
+      FabLab Cuenca • Universidad de Cuenca • Facultad de Ciencias Químicas
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Lightbox modal logic for inspecting full high-res screenshots
+    function openLightbox(src, title) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-title').innerText = title;
+      document.getElementById('lightbox-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
